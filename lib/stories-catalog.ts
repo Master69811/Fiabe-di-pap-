@@ -1736,6 +1736,346 @@ Avevano imparato che nei momenti più difficili, il coraggio e l'intelligenza, u
   },
 
   {
+    id: 'biancaneve',
+    cover_color: 'linear-gradient(135deg, #F43F5E, #FBBF24)',
+    relaxation_level: 4,
+    title: 'Biancaneve e i Sette Nani',
+    description:
+      'Biancaneve è la ragazza più bella del reame, e questo rende gelosa la sua matrigna. Fuggita nel bosco, trova rifugio con sette simpatici nani. La fiaba classica sulla bellezza del cuore e sulla bontà che vince sempre.',
+    content: `C'era una volta una regina che desiderava con tutto il cuore una bambina bella come la neve, rossa come il sangue e nera come l'ebano. Il desiderio si avverò: nacque una bambina bellissima, con la pelle bianca come la neve, le labbra rosse come ciliegie e i capelli neri come la notte. La chiamarono Biancaneve.
+
+Ma la regina morì poco dopo. Il re si risposò con una donna bellissima, ma dal cuore di ghiaccio. La matrigna aveva uno specchio magico, e ogni mattina gli chiedeva:
+"Specchio delle mie brame, chi è la più bella del reame?"
+E lo specchio rispondeva: "Tu sei la più bella, o Regina."
+
+Ma un giorno lo specchio disse: "Biancaneve è più bella di te."
+
+La matrigna si riempì di gelosia e odio. Ordinò a un cacciatore di portare Biancaneve nel bosco e di non farla tornare.
+
+Il cacciatore però non ebbe il coraggio di fare del male alla bambina innocente. La lasciò andare nel bosco, pregandola di scappare lontano.
+
+Biancaneve corse e corse tra gli alberi fitti, spaventata, finché vide una piccola casetta. Bussò. Nessuno aprì. Entrò.
+
+Dentro c'era tutto in miniatura: sette tavoline, sette sedie, sette lettini. Biancaneve era così stanca che si sdraiò su tre lettini messi in fila e si addormentò.
+
+Quella sera tornarono i sette nani: Brontolo, Pisolo, Mammolo, Eolo, Gongolo, Cucciolo e Doc. Trovarono Biancaneve addormentata e restarono incantati dalla sua bellezza.
+
+La mattina Biancaneve si svegliò e spiegò la sua storia. I nani la accolsero con gioia.
+
+"Puoi restare con noi!" disse Doc. "Ma stai attenta: non aprire la porta a nessuno quando siamo via."
+
+Ogni giorno i nani andavano a lavorare in miniera. Biancaneve cucinava, puliva e cantava.
+
+Ma la matrigna scoprì allo specchio che Biancaneve era viva e abitava coi nani. Si trasformò in una vecchina e andò alla casetta con una mela avvelenata.
+
+"Prendila, bambina. È la più dolce del bosco."
+
+Biancaneve aveva paura degli estranei. Ma la vecchina sembrò così buona, e la mela così rossa e profumata...
+
+Biancaneve mordicchiò la mela. E cadde a terra senza sensi.
+
+I nani tornarono e trovarono Biancaneve immobile. Non riuscirono a svegliarla. Piangendo, la posarono in una bara di vetro nel bosco, tra i fiori.
+
+Passò del tempo. Un giorno passò un principe. Vide Biancaneve nella bara di vetro e rimase colpito dalla sua bellezza e dalla sua espressione serena.
+
+"Lasciatemi portarla via," chiese ai nani. "Non riesco ad abbandonarla."
+
+I nani acconsentirono. Mentre i servitori sollevavano la bara, uno di loro inciampò. La bara oscillò, e il pezzo di mela avvelenata si staccò dalla gola di Biancaneve.
+
+Lei aprì gli occhi.
+
+"Dove sono?"
+
+Il principe la guardò con occhi pieni di gioia. "Al sicuro."
+
+La matrigna, quando lo specchio le disse che Biancaneve era ancora la più bella del reame, cadde in preda alla rabbia e non si fece più rivedere.
+
+Biancaneve e il principe vissero felici. E i sette nani andavano a trovarli ogni settimana, e la casetta nel bosco rimase sempre il posto più caldo del mondo.`,
+    category: 'magic',
+    age_min: 4,
+    age_max: 9,
+    duration_minutes: 8,
+    language_level: 'medium',
+    mood: 'magical',
+    is_ai_generated: false,
+    moral: 'La bontà del cuore è la vera bellezza. La gelosia e la cattiveria non portano felicità.',
+    cover_emoji: '🍎',
+    tags: ['fiaba classica', 'biancaneve', 'nani', 'matrigna', 'magia', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'il-brutto-anatroccolo',
+    cover_color: 'linear-gradient(135deg, #67E8F9, #3B82F6)',
+    relaxation_level: 4,
+    title: 'Il Brutto Anatroccolo',
+    description:
+      'Un anatroccolo diverso dagli altri viene preso in giro da tutti. Ma la primavera porta una sorpresa meravigliosa: crescere significa scoprire chi sei davvero.',
+    content: `In fattoria, una mattina di primavera, si schiusero le uova di mamma Anatra. Uno, due, tre, quattro, cinque anatroccoli gialli soffici. Ma l'ultimo uovo, quello più grande, tardava.
+
+Finalmente si schiuse. Ne uscì un anatroccolo diverso: grande, goffo, con le piume grigie invece che gialle.
+
+"Che strano!" cominciarono a dire gli altri animali. "Che brutto!"
+
+Gli altri anatroccoli lo evitavano. Le galline lo beccavano. Persino i bambini della fattoria lo inseguivano.
+
+Il povero anatroccolo grigio si sentiva solo e sbagliato.
+
+"Perché sono diverso?" si chiedeva ogni giorno. "Perché nessuno mi vuole?"
+
+Un mattino non ce la fece più. Scappò dalla fattoria e si avventurò nel grande mondo.
+
+Incontrò gli uccelli selvatici del prato: "Posso stare con voi?"
+
+"Sei troppo brutto," risposero.
+
+Trovò un lago solitario. Ci rimase per tutta l'estate. Poi arrivò l'autunno, poi l'inverno. Il lago si ghiacciò. L'anatroccolo quasi morì di freddo.
+
+Ma sopravvisse.
+
+Poi arrivò la primavera.
+
+Un mattino l'anatroccolo si avvicinò al lago per bere. L'acqua era specchiata e calma. Si guardò.
+
+Rimase immobile.
+
+Nell'acqua non c'era nessun anatroccolo brutto e grigio. C'era un cigno bianco, magnifico, con il lungo collo elegante e le grandi ali che brillavano al sole.
+
+"Sono io?" sussurrò.
+
+In quel momento arrivarono altri cigni sul lago, nuotando con grazia.
+
+"Vieni con noi!" dissero.
+
+E il giovane cigno — che per tutto l'inverno aveva creduto di essere un anatroccolo brutto — nuotò con loro, meravigliato e felice.
+
+I bambini che si affacciarono al lago quel giorno dissero: "Guardate! Un cigno nuovo! Il più bello di tutti!"
+
+Il cigno pensò a tutti i mesi di solitudine, alle lacrime, al freddo. E capì una cosa: non era mai stato sbagliato. Stava solo crescendo per diventare quello che era sempre stato destinato a essere.
+
+Non tutti i cuccioli assomigliano ai loro fratelli. Non tutti crescono nello stesso modo. Ma dentro ogni essere diverso c'è qualcosa di meraviglioso che aspetta di fiorire.
+
+Bisogna solo avere la pazienza di aspettare la primavera.`,
+    category: 'emotions',
+    age_min: 4,
+    age_max: 8,
+    duration_minutes: 6,
+    language_level: 'simple',
+    mood: 'tender',
+    is_ai_generated: false,
+    moral: "Essere diversi non significa essere sbagliati. Dentro ognuno c'è qualcosa di meraviglioso che aspetta di fiorire.",
+    cover_emoji: '🦢',
+    tags: ['fiaba classica', 'anatroccolo', 'cigno', 'diversità', 'crescita', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'la-bella-addormentata',
+    cover_color: 'linear-gradient(135deg, #F0ABFC, #818CF8)',
+    relaxation_level: 5,
+    title: 'La Bella Addormentata',
+    description:
+      'Alla nascita di una principessa vengono invitate le fate per donarle le loro grazie. Ma una fata cattiva lancia una maledizione... La fiaba classica che ci insegna che il vero amore vince su tutto.',
+    content: `In un lontano regno, il re e la regina attendevano da anni la nascita di un figlio. Quando finalmente nacque una bambina bellissima, organizzarono una grande festa.
+
+Invitarono le fate del regno a fare doni alla principessa. Una per una si avvicinavano alla culla: "Ti dono la bellezza." "Ti dono la bontà." "Ti dono la grazia." "Ti dono la voce più dolce del reame."
+
+Ma mentre l'ultima fata si stava avvicinando, comparve una vecchia fata che non era stata invitata. Era furiosa.
+
+"Anche io ho un dono per la principessa," disse con voce gelida. "Nel giorno del suo sedicesimo compleanno, si pungerà il dito con un fuso e cadrà in un sonno profondo. Per sempre!"
+
+Un brivido corse per tutta la sala. La regina pianse.
+
+Ma l'ultima fata si fece avanti. Non poteva togliere la maledizione, ma poteva attenuarla.
+
+"Non per sempre," disse. "La principessa si addormenterà, sì. Ma si sveglierà al bacio del vero amore."
+
+Il re fece bruciare tutti i fusi del regno. Ma la maledizione non si può cancellare del tutto.
+
+La principessa crebbe bella, buona e gentile. Nel giorno del suo sedicesimo compleanno, curiosa come tutti i giovani, si avventurò in una torre dimenticata del castello. Lì trovò una vecchina che filava con un fuso.
+
+"Prova anche tu," disse la vecchina.
+
+La principessa toccò il fuso. Si punse il dito. E cadde in un sonno profondissimo.
+
+In quel momento, tutto il castello si addormentò con lei: il re, la regina, i cortigiani, i cuochi, le guardie. Anche i cani e i gatti. Il tempo si fermò.
+
+Intorno al castello crescerono rovi fitti e spinosi, alti come montagne.
+
+Passarono anni. Poi decenni. Le storie della Bella Addormentata si diffusero in tutto il mondo.
+
+Un giorno, un giovane principe udì la storia. Non aveva paura. Si avvicinò al castello. I rovi, come per magia, si aprirono davanti a lui.
+
+Entrò nel castello silenzioso. Salì le scale, aprì le porte, finché non trovò la principessa addormentata su un letto di seta, bella come se dormisse semplicemente.
+
+Il principe si inginocchiò accanto a lei. Le prese la mano.
+
+Poi, piano, la baciò sulla fronte.
+
+La principessa aprì gli occhi. Vide il principe e sorrise.
+
+In quel momento, tutto il castello si svegliò. I re, la regina, i cortigiani, i cuochi. I cani abbaiarono. I gatti miagolarono. Le campane suonarono a festa.
+
+La principessa e il principe si sposarono. E vissero felici per tutti i giorni della loro lunga vita, circondiati dall'amore di una famiglia finalmente intera.`,
+    category: 'magic',
+    age_min: 4,
+    age_max: 9,
+    duration_minutes: 7,
+    language_level: 'medium',
+    mood: 'magical',
+    is_ai_generated: false,
+    moral: 'Il vero amore è paziente e trova sempre la sua strada, anche attraverso il tempo.',
+    cover_emoji: '💤',
+    tags: ['fiaba classica', 'bella addormentata', 'principe', 'fata', 'magia', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'pinocchio',
+    cover_color: 'linear-gradient(135deg, #78350F, #F97316)',
+    relaxation_level: 3,
+    title: 'Pinocchio',
+    description:
+      'Geppetto intaglia un burattino di legno che prende vita: Pinocchio! Le sue bugie gli faranno crescere il naso, ma le sue avventure gli insegneranno la cosa più importante: essere un bambino vero.',
+    content: `In una bottega piena di trucioli e profumo di legno, un vecchio falegname di nome Geppetto sognava di avere un figlio.
+
+Un giorno intagliò un burattino di legno, con le orecchie grandi e il nasino lungo. Lo chiamò Pinocchio.
+
+Con meraviglia e gioia, il burattino aprì gli occhi, mosse le gambe, e disse: "Ciao, babbo!"
+
+Geppetto non stava nella pelle dalla felicità. Gli comprò il vestito, il cappellino e il libro per andare a scuola.
+
+"Devi studiare, Pinocchio. La scuola ti renderà un bambino vero."
+
+Pinocchio partì. Ma sulla strada per la scuola incontrò il Gatto e la Volpe, che erano imbroglioni.
+
+"Vieni con noi al Campo dei Miracoli! Pianterai i tuoi soldi e crescerà un albero d'oro!"
+
+Pinocchio ci credette. Piantò i suoi pochi soldi. Naturalmente, quando tornò, non c'era nessun albero. I soldi erano spariti, rubati dal Gatto e dalla Volpe.
+
+Ogni volta che Pinocchio mentiva, il suo naso cresceva. Cresceva e cresceva, finché non riusciva più a stare nella stanza.
+
+"Pinocchio," gli diceva la Fata Turchina, l'essere magico che vegliava su di lui, "le bugie hanno le gambe corte. E te le vedo tutte sul naso."
+
+Pinocchio arrossiva e si vergognava. Ma poi tornava a sbagliare.
+
+Finì nel Paese dei Balocchi, dove i bambini non studiavano mai e giocavano sempre. Sembrava meraviglioso! Ma dopo un po', i bambini cominciarono a trasformarsi in asini.
+
+Pinocchio si ritrovò anche lui con le orecchie da asino.
+
+"No! Babbo! Aiuto!"
+
+Ma poi arrivò la notizia peggiore: Geppetto era andato a cercarlo per mare, ed era stato inghiottito da un grande pesce — il Pescecane!
+
+Pinocchio dimenticò tutte le sue avventure, i balocchi, le bugie. Pensò solo a Geppetto. Si tuffò in mare e si fece inghiottire anche lui dal Pescecane per trovare il babbo.
+
+Nell'oscurità del ventre del pesce, Pinocchio trovò Geppetto, debole ma vivo.
+
+"Babbo! Ti ho trovato!"
+
+"Pinocchio mio!"
+
+Insieme trovarono il modo di far starnutire il Pescecane e scapparono fuori.
+
+Pinocchio portò il babbo a casa sulle spalle, camminando nell'acqua gelata tutta la notte. Lo curò, lo accudì, lavorò per guadagnare abbastanza da comprare il latte per Geppetto malato.
+
+Una notte, la Fata Turchina gli apparve in sogno.
+
+"Pinocchio, hai dimostrato di saper amare. Hai pensato agli altri prima che a te stesso. Hai lavorato invece di scappare."
+
+La mattina dopo, Pinocchio si svegliò.
+
+Non era più di legno.
+
+Era un bambino vero.
+
+Geppetto lo abbracciò con le lacrime agli occhi.
+
+"Figlio mio."
+
+E Pinocchio capì che il modo per diventare davvero grandi non è fare quello che si vuole, ma imparare ad amare bene le persone a cui si vuole bene.`,
+    category: 'educational',
+    age_min: 4,
+    age_max: 9,
+    duration_minutes: 8,
+    language_level: 'medium',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: "Le bugie fanno del male. La vera crescita viene dall'amare gli altri e dalla responsabilità.",
+    cover_emoji: '🪵',
+    tags: ['fiaba classica', 'pinocchio', 'geppetto', 'bugie', 'educativa', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'pollicino',
+    cover_color: 'linear-gradient(135deg, #059669, #0D9488)',
+    relaxation_level: 3,
+    title: 'Pollicino',
+    description:
+      'Pollicino è grande come un pollice, ma ha un coraggio e un\'intelligenza enormi. Quando i suoi fratelli si perdono nel bosco, è lui il più piccolo a trovare la via per salvarli tutti.',
+    content: `C'era una volta un bambino nato così piccolo che stava nel palmo di una mano. Lo chiamarono Pollicino perché era grande quanto un pollice.
+
+La sua famiglia era povera, con sette figli maschi. Pollicino era il più piccolo, il più quieto. Gli altri a volte si dimenticavano di lui.
+
+Ma Pollicino ascoltava tutto. E pensava molto.
+
+Un giorno sentì i genitori parlare sottovoce, tristi:
+"Non abbiamo più da mangiare per tutti. Domani portiamo i bambini nel bosco."
+
+Quella notte, mentre tutti dormivano, Pollicino uscì piano piano nel giardino. Riempì le tasche di sassolini bianchi, lucidi come perle.
+
+Il mattino dopo, mentre il padre portava i sette figli nel bosco, Pollicino camminava per ultimo. Ogni passo, lasciava cadere un sassolino.
+
+Nel cuore del bosco, i genitori sparirono. I fratelli piangevano.
+
+"Non abbiate paura," disse Pollicino con la sua vocina piccola. "Ho segnato la strada."
+
+Aspettarono che la luna sorgesse. Poi seguirono i sassolini bianchi che brillavano nell'oscurità, uno per uno. Tornarono a casa prima dell'alba.
+
+Il papà e la mamma erano così felici di rivederli che piansero.
+
+Ma qualche giorno dopo, la miseria ricominciò. E ancora il padre portò i sette figli nel bosco.
+
+Questa volta Pollicino aveva solo briciole di pane. Le lasciò cadere sul sentiero. Ma gli uccellini le mangiarono tutte.
+
+I fratelli erano persi sul serio.
+
+Camminarono a lungo. Videro in lontananza una luce. Era una grande casa. Bussarono.
+
+Aprì una donna gentile. "Entrate, poverini. Ma siete in pericolo: qui vive l'Orco, che mangia i bambini."
+
+Prima che potessero scappare, l'Orco tornò.
+
+"Sento odore di carne fresca!" ruggì.
+
+La moglie li nascose sotto i letti. Ma l'Orco li trovò lo stesso.
+
+"Li mangio domani mattina," disse, e li rinchiuse.
+
+Quella notte, Pollicino escogitò un piano. L'Orco aveva sette figlie che dormivano con corone d'oro in testa. I sette fratelli avevano cappellini di lana.
+
+Con grande delicatezza, nel buio, Pollicino scambiò i cappellini con le corone.
+
+A notte fonda, l'Orco si alzò per prendere i bambini. Nel buio, toccò le teste con i cappellini di lana. "Questi sono i miei figli," pensò, e per sbaglio portò via le sue figlie.
+
+I sette fratelli scapparono nella notte e corsero lontanissimo.
+
+L'Orco quando si accorse dell'errore urlò di rabbia. Ma era troppo tardi.
+
+Pollicino portò i fratelli sani e salvi a casa, dove i genitori li abbracciarono piangendo di sollievo.
+
+Da quel giorno, nessuno chiamò più Pollicino "il più piccolo." Lo chiamarono "il più coraggioso." Perché avevano capito che il coraggio non misura quanto sei grande, ma quanto grande è il tuo cuore.`,
+    category: 'heroes',
+    age_min: 4,
+    age_max: 8,
+    duration_minutes: 7,
+    language_level: 'medium',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: 'Il coraggio e la furbizia non dipendono dalla grandezza. Anche il più piccolo può fare cose enormi.',
+    cover_emoji: '👍',
+    tags: ['fiaba classica', 'pollicino', 'coraggio', 'intelligenza', 'fratelli', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+
+  {
     id: 'luca-e-il-gattino-nero',
     cover_color: 'linear-gradient(135deg, #F59E0B, #F97316)',
     relaxation_level: 3,

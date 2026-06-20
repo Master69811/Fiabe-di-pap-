@@ -35,6 +35,7 @@ export default function PlayPage({ params }: PageProps) {
   const router = useRouter()
 
   const childName = searchParams.get('child') || undefined
+  const childId = searchParams.get('childId') || undefined
   const duration = (searchParams.get('duration') || 'classic') as StoryDuration
 
   const [story, setStory] = useState<Story | null>(null)
@@ -123,6 +124,13 @@ export default function PlayPage({ params }: PageProps) {
   const startStory = async () => {
     if (!story || !voiceId) return
     setWaitingForStart(false)
+
+    // Logga la sessione in background (fire-and-forget)
+    fetch('/api/sessions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ storyId: story.id, childProfileId: childId }),
+    }).catch(() => null)
 
     // Se la pre-generazione è già completata → player immediato!
     if (pregenUrlRef.current) {

@@ -1,13 +1,16 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Clock, Users } from 'lucide-react'
+import { Clock, Users, Heart } from 'lucide-react'
 import { Story, StoryCategory, StoryMood, CATEGORY_META } from '@/types'
 
 interface StoryCardProps {
   story: Story
   onPlay?: (story: Story) => void
   childName?: string
+  isFavorite?: boolean
+  onToggleFavorite?: (storyId: string) => void
+  isListened?: boolean
 }
 
 const moodLabels: Record<StoryMood, string> = {
@@ -21,7 +24,7 @@ const moodLabels: Record<StoryMood, string> = {
 
 const relaxationStars = (level: number) => '★'.repeat(level) + '☆'.repeat(5 - level)
 
-export function StoryCard({ story, onPlay, childName }: StoryCardProps) {
+export function StoryCard({ story, onPlay, childName, isFavorite, onToggleFavorite, isListened }: StoryCardProps) {
   const meta = CATEGORY_META[story.category as StoryCategory]
 
   return (
@@ -44,10 +47,9 @@ export function StoryCard({ story, onPlay, childName }: StoryCardProps) {
           {/* Cerchio luminoso decorativo */}
           <div
             className="absolute inset-0 opacity-20"
-            style={{
-              background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 60%)',
-            }}
+            style={{ background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 60%)' }}
           />
+
           <motion.div
             className="text-6xl relative z-10 drop-shadow-lg"
             whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.4 } }}
@@ -55,10 +57,38 @@ export function StoryCard({ story, onPlay, childName }: StoryCardProps) {
             {story.cover_emoji}
           </motion.div>
 
-          {/* Livello rilassamento (stelle) in alto a destra */}
+          {/* Stelle rilassamento in alto a destra */}
           <div className="absolute top-3 right-3 text-xs text-white/80 font-bold tracking-widest">
             {relaxationStars(story.relaxation_level)}
           </div>
+
+          {/* Badge "già ascoltata" in alto a sinistra */}
+          {isListened && (
+            <div
+              className="absolute top-3 left-3 w-6 h-6 rounded-full flex items-center justify-center text-xs font-black"
+              style={{ backgroundColor: '#22c55e', color: 'white' }}
+              title="Già ascoltata"
+            >
+              ✓
+            </div>
+          )}
+
+          {/* Tasto preferito */}
+          {onToggleFavorite && (
+            <motion.button
+              whileTap={{ scale: 0.85 }}
+              onClick={(e) => { e.stopPropagation(); onToggleFavorite(story.id) }}
+              className="absolute bottom-3 right-3 w-8 h-8 rounded-full flex items-center justify-center"
+              style={{ backgroundColor: 'rgba(255,255,255,0.85)' }}
+              aria-label={isFavorite ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
+            >
+              <Heart
+                size={16}
+                fill={isFavorite ? '#ef4444' : 'none'}
+                stroke={isFavorite ? '#ef4444' : '#6b7280'}
+              />
+            </motion.button>
+          )}
         </div>
 
         {/* Corpo della card */}
@@ -82,26 +112,20 @@ export function StoryCard({ story, onPlay, childName }: StoryCardProps) {
           )}
 
           {/* Titolo */}
-          <h3
-            className="text-base font-bold leading-tight"
-            style={{ color: 'var(--foreground)' }}
-          >
+          <h3 className="text-base font-bold leading-tight" style={{ color: 'var(--foreground)' }}>
             {story.title}
+            {story.tags.includes('fiaba classica') && (
+              <span className="ml-1 text-xs font-normal" style={{ color: '#f59e0b' }}>classica</span>
+            )}
           </h3>
 
           {/* Descrizione */}
-          <p
-            className="text-xs leading-relaxed line-clamp-2 flex-1"
-            style={{ color: 'var(--muted-foreground)' }}
-          >
+          <p className="text-xs leading-relaxed line-clamp-2 flex-1" style={{ color: 'var(--muted-foreground)' }}>
             {story.description}
           </p>
 
           {/* Meta info */}
-          <div
-            className="flex items-center gap-3 text-xs mt-1"
-            style={{ color: 'var(--muted-foreground)' }}
-          >
+          <div className="flex items-center gap-3 text-xs mt-1" style={{ color: 'var(--muted-foreground)' }}>
             <span className="flex items-center gap-1">
               <Clock size={11} />
               {story.duration_minutes} min
