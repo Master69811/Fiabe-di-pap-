@@ -51,11 +51,21 @@ export default function ProfilePage() {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return }
 
-      const { data: family } = await supabase
+      let { data: family } = await supabase
         .from('families')
         .select('id')
         .eq('user_id', user.id)
         .single()
+
+      // Trigger may not have fired for existing users — create family as fallback
+      if (!family) {
+        const { data: created } = await supabase
+          .from('families')
+          .upsert({ user_id: user.id }, { onConflict: 'user_id' })
+          .select('id')
+          .single()
+        family = created
+      }
 
       if (family) {
         setFamilyId(family.id)

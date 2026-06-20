@@ -38,11 +38,20 @@ export default function DashboardPage() {
         return
       }
 
-      const { data: familyData } = await supabase
+      let { data: familyData } = await supabase
         .from('families')
         .select('*')
         .eq('user_id', user.id)
         .single()
+
+      if (!familyData) {
+        const { data: created } = await supabase
+          .from('families')
+          .upsert({ user_id: user.id }, { onConflict: 'user_id' })
+          .select('*')
+          .single()
+        familyData = created
+      }
 
       if (familyData) {
         setFamily(familyData as Family)
