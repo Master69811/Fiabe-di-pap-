@@ -2,43 +2,89 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-async function getUser() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  return user
+async function getServerSupabase() {
+  return createClient()
 }
 
-async function ensureFamily(userId: string): Promise<string | null> {
-  const admin = createAdminClient()
+function getAdminSupabase() {
+  try {
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) return null
+    return createAdminClient()
+  } catch {
+    return null
+  }
+}
 
-  const { data: existing } = await admin
+async function ensureFamily(userId: string): Promise<{ id: string | null; error?: string }> {
+  const supabase = await getServerSupabase()
+
+  // Step 1: prova SELECT con il client normale (funziona con RLS per SELECT)
+  const { data: existing } = await supabase
     .from('families')
     .select('id')
     .eq('user_id', userId)
     .maybeSingle()
 
-  if (existing) return existing.id
+  if (existing?.id) return { id: existing.id }
 
-  const { data: created, error } = await admin
+  // Step 2: prova INSERT via admin client (bypassa RLS)
+  const admin = getAdminSupabase()
+  if (admin) {
+    const { data: created, error: adminErr } = await admin
+      .from('families')
+      .insert({ user_id: userId })
+      .select('id')
+      .single()
+
+    if (!adminErr && created?.id) return { id: created.id }
+
+    // Famiglia potrebbe già esistere (race condition o admin SELECT fallito prima)
+    const { data: retry } = await admin
+      .from('families')
+      .select('id')
+      .eq('user_id', userId)
+      .maybeSingle()
+
+    if (retry?.id) return { id: retry.id }
+
+    console.error('Admin INSERT error:', adminErr?.message)
+    return { id: null, error: `DB error: ${adminErr?.message}` }
+  }
+
+  // Step 3: fallback INSERT via client normale (funziona se RLS ha WITH CHECK)
+  const { data: created, error: clientErr } = await supabase
     .from('families')
     .insert({ user_id: userId })
     .select('id')
     .single()
 
-  if (error) {
-    console.error('Family create error:', error)
-    return null
+  if (!clientErr && created?.id) return { id: created.id }
+
+  // Step 4: prova upsert come ultima risorsa
+  const { data: upserted, error: upsertErr } = await supabase
+    .from('families')
+    .upsert({ user_id: userId }, { onConflict: 'user_id' })
+    .select('id')
+    .single()
+
+  if (!upsertErr && upserted?.id) return { id: upserted.id }
+
+  console.error('All family creation attempts failed:', clientErr?.message, upsertErr?.message)
+  return {
+    id: null,
+    error: clientErr?.message || upsertErr?.message || 'Impossibile creare la famiglia',
   }
-  return created.id
 }
 
 export async function GET() {
-  const user = await getUser()
+  const supabase = await getServerSupabase()
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
 
-  const admin = createAdminClient()
+  const admin = getAdminSupabase()
+  const db = admin ?? supabase
 
-  const { data: family } = await admin
+  const { data: family } = await db
     .from('families')
     .select('id')
     .eq('user_id', user.id)
@@ -46,7 +92,7 @@ export async function GET() {
 
   if (!family) return NextResponse.json({ children: [], familyId: null })
 
-  const { data: children, error } = await admin
+  const { data: children, error } = await db
     .from('child_profiles')
     .select('*')
     .eq('family_id', family.id)
@@ -57,7 +103,8 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const user = await getUser()
+  const supabase = await getServerSupabase()
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
 
   let body: Record<string, unknown>
@@ -80,12 +127,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Nome e età sono obbligatori' }, { status: 400 })
   }
 
-  const familyId = await ensureFamily(user.id)
+  const { id: familyId, error: familyError } = await ensureFamily(user.id)
   if (!familyId) {
-    return NextResponse.json({ error: 'Impossibile creare il profilo famiglia. Contatta il supporto.' }, { status: 500 })
+    return NextResponse.json(
+      { error: `Errore famiglia: ${familyError ?? 'sconosciuto'}. Aggiungi SUPABASE_SERVICE_ROLE_KEY su Vercel.` },
+      { status: 500 }
+    )
   }
 
-  const admin = createAdminClient()
+  const admin = getAdminSupabase()
+  const db = admin ?? supabase
+
   const payload = {
     name: String(name).trim(),
     age: parseInt(String(age)),
@@ -96,7 +148,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (editId) {
-    const { data, error } = await admin
+    const { data, error } = await db
       .from('child_profiles')
       .update(payload)
       .eq('id', editId)
@@ -107,7 +159,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ child: data, familyId })
   }
 
-  const { data, error } = await admin
+  const { data, error } = await db
     .from('child_profiles')
     .insert(payload)
     .select()
@@ -117,16 +169,18 @@ export async function POST(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
-  const user = await getUser()
+  const supabase = await getServerSupabase()
+  const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Non autorizzato' }, { status: 401 })
 
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   if (!id) return NextResponse.json({ error: 'ID mancante' }, { status: 400 })
 
-  const admin = createAdminClient()
+  const admin = getAdminSupabase()
+  const db = admin ?? supabase
 
-  const { data: family } = await admin
+  const { data: family } = await db
     .from('families')
     .select('id')
     .eq('user_id', user.id)
@@ -134,7 +188,7 @@ export async function DELETE(request: NextRequest) {
 
   if (!family) return NextResponse.json({ error: 'Famiglia non trovata' }, { status: 404 })
 
-  const { error } = await admin
+  const { error } = await db
     .from('child_profiles')
     .delete()
     .eq('id', id)

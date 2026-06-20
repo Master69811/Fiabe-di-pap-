@@ -10,7 +10,7 @@ import { AudioPlayer } from '@/components/AudioPlayer'
 import { getStoryById } from '@/lib/stories-catalog'
 import { CATEGORY_MUSIC } from '@/lib/music-catalog'
 import { createClient } from '@/lib/supabase/client'
-import { ArrowLeft, AlertCircle, Loader2, Mic, Sparkles, Music, VolumeOff, Play } from 'lucide-react'
+import { ArrowLeft, AlertCircle, Loader2, Sparkles, Music, VolumeOff, Play } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { Story, StoryDuration } from '@/types'
 import { DURATION_OPTIONS as OPTS, CATEGORY_META } from '@/types'
@@ -18,6 +18,9 @@ import { DURATION_OPTIONS as OPTS, CATEGORY_META } from '@/types'
 interface PageProps {
   params: Promise<{ storyId: string }>
 }
+
+// Voice ID di default di papà Andrea — usato se non configurato sul profilo
+const DEFAULT_VOICE_ID = 'Au9QDigs0anA5pmgPwLo'
 
 const loadingMessages = [
   'La voce si scalda...',
@@ -77,15 +80,10 @@ export default function PlayPage({ params }: PageProps) {
         .eq('user_id', user.id)
         .single()
 
-      if (!family?.has_voice_setup || !family?.elevenlabs_voice_id) {
-        setError('no-voice')
-        setLoading(false)
-        return
-      }
-
-      setVoiceId(family.elevenlabs_voice_id)
+      // Usa il voice ID salvato oppure il default di papà Andrea
+      setVoiceId(family?.elevenlabs_voice_id || DEFAULT_VOICE_ID)
       setLoading(false)
-      setWaitingForStart(true) // Mostra schermata di avvio
+      setWaitingForStart(true)
     })
   }, [storyId, router])
 
@@ -146,38 +144,6 @@ export default function PlayPage({ params }: PageProps) {
             🦉
           </motion.div>
           <p className="font-semibold" style={{ color: '#7c3aed' }}>Caricamento...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error === 'no-voice') {
-    return (
-      <div
-        className="min-h-screen flex items-center justify-center p-6"
-        style={{ background: 'linear-gradient(180deg, #f3e8ff 0%, #fdf4ff 100%)' }}
-      >
-        <div className="max-w-sm text-center space-y-6">
-          <div className="text-7xl">🎙️</div>
-          <h2 className="text-2xl font-bold" style={{ color: '#4c1d95' }}>
-            Configura prima la tua voce
-          </h2>
-          <p style={{ color: '#7c3aed' }}>
-            Per ascoltare le storie con la tua voce devi prima collegare il tuo profilo ElevenLabs.
-          </p>
-          <div className="flex flex-col gap-3">
-            <Button
-              onClick={() => router.push('/voice-setup')}
-              size="lg"
-              className="rounded-2xl"
-              style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
-            >
-              <Mic size={18} className="mr-2" /> Configura la voce
-            </Button>
-            <Button variant="ghost" onClick={() => router.back()} className="rounded-2xl">
-              Torna indietro
-            </Button>
-          </div>
         </div>
       </div>
     )

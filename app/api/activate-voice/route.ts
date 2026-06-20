@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 
-const VOICE_ID = 'dvx6J2t5ZDLUD0DdVwzk'
+const VOICE_ID = 'Au9QDigs0anA5pmgPwLo'
 
 export async function GET(request: NextRequest) {
   const supabase = await createClient()
