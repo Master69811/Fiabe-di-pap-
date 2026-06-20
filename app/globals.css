@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdf8f0;
+  --foreground: #2d1b0e;
+  --primary: #e8834a;
+  --primary-dark: #c96b32;
+  --secondary: #7ec8a4;
+  --accent: #f4c65a;
+  --muted: #f5ede0;
+  --muted-foreground: #8b6b4a;
+  --card: #ffffff;
+  --card-foreground: #2d1b0e;
+  --border: #e8d5b7;
+  --ring: #e8834a;
+  --radius: 1rem;
+  --night-bg: #0d0a1a;
+  --night-fg: #e8d5ff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Georgia, 'Times New Roman', serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: Georgia, 'Times New Roman', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--muted); }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+
+/* Soundwave animation */
+@keyframes soundwave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.soundwave-bar {
+  animation: soundwave 1.2s ease-in-out infinite;
+  transform-origin: bottom;
+}
+.soundwave-bar:nth-child(1) { animation-delay: 0.0s; }
+.soundwave-bar:nth-child(2) { animation-delay: 0.1s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.2s; }
+.soundwave-bar:nth-child(4) { animation-delay: 0.3s; }
+.soundwave-bar:nth-child(5) { animation-delay: 0.4s; }
+.soundwave-bar:nth-child(6) { animation-delay: 0.2s; }
+.soundwave-bar:nth-child(7) { animation-delay: 0.1s; }
+
+/* Night mode */
+.night-mode {
+  background-color: var(--night-bg) !important;
+  color: var(--night-fg) !important;
+}
+
+.night-mode .night-card {
+  background-color: #1a1230 !important;
+  border-color: #2d1f5e !important;
+}
+
+/* Floating stars animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Pulse glow for playing state */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(232, 131, 74, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(232, 131, 74, 0.6); }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Stars background */
+.stars-bg {
+  background-image: radial-gradient(circle at 20% 80%, rgba(232, 131, 74, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(126, 200, 164, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(244, 198, 90, 0.03) 0%, transparent 50%);
+}
