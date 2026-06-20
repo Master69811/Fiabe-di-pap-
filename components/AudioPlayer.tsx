@@ -18,6 +18,7 @@ interface AudioPlayerProps {
   storyTitle: string
   childName?: string
   coverEmoji: string
+  coverColor?: string
 }
 
 function formatTime(seconds: number): string {
@@ -27,7 +28,7 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
-export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: AudioPlayerProps) {
+export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, coverColor }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -115,6 +116,11 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
     ? { background: 'linear-gradient(135deg, #0d0a1a 0%, #1a1230 100%)', color: '#e8d5ff' }
     : { background: 'linear-gradient(135deg, #fdf8f0 0%, #f5ede0 100%)', color: 'var(--foreground)' }
 
+  const accentColor = nightMode ? '#a78bfa' : 'var(--primary)'
+  const coverBg = nightMode
+    ? 'linear-gradient(135deg, #2d1b69 0%, #4c1d95 100%)'
+    : (coverColor ?? 'linear-gradient(135deg, var(--primary) 0%, #f4a261 100%)')
+
   return (
     <div
       className="min-h-screen flex items-center justify-center p-6 transition-all duration-700"
@@ -123,7 +129,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
       <audio ref={audioRef} src={audioUrl} preload="auto" />
 
       <div className="w-full max-w-md mx-auto">
-        {/* Night mode toggle */}
+        {/* Toggle modalità notte */}
         <div className="flex justify-end mb-6">
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -139,34 +145,30 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
           </motion.button>
         </div>
 
-        {/* Cover art */}
+        {/* Copertina */}
         <div className="flex justify-center mb-8">
           <motion.div
             className="relative"
-            animate={isPlaying ? { scale: [1, 1.05, 1] } : { scale: 1 }}
-            transition={{ duration: 2, repeat: isPlaying ? Infinity : 0, ease: 'easeInOut' }}
+            animate={isPlaying ? { scale: [1, 1.04, 1] } : { scale: 1 }}
+            transition={{ duration: 2.5, repeat: isPlaying ? Infinity : 0, ease: 'easeInOut' }}
           >
-            {/* Outer glow ring */}
+            {/* Alone luminoso */}
             <AnimatePresence>
               {isPlaying && (
                 <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1.2, opacity: 0.4 }}
+                  initial={{ scale: 0.85, opacity: 0 }}
+                  animate={{ scale: 1.25, opacity: 0.35 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatType: 'reverse' }}
-                  className="absolute inset-0 rounded-full"
-                  style={{ backgroundColor: 'var(--primary)' }}
+                  transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse' }}
+                  className="absolute inset-0 rounded-full blur-md"
+                  style={{ background: coverBg }}
                 />
               )}
             </AnimatePresence>
 
             <div
               className="w-48 h-48 rounded-full flex items-center justify-center text-7xl shadow-2xl relative z-10"
-              style={{
-                background: nightMode
-                  ? 'linear-gradient(135deg, #2d1b69 0%, #4c1d95 100%)'
-                  : 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
-              }}
+              style={{ background: coverBg }}
             >
               {coverEmoji}
             </div>
@@ -180,16 +182,16 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
               key={i}
               className={`w-1.5 rounded-full ${isPlaying ? 'soundwave-bar' : ''}`}
               style={{
-                height: isPlaying ? '100%' : '30%',
-                backgroundColor: nightMode ? '#a78bfa' : 'var(--primary)',
-                opacity: isPlaying ? 1 : 0.4,
+                height: isPlaying ? '100%' : '28%',
+                backgroundColor: accentColor,
+                opacity: isPlaying ? 1 : 0.35,
                 transition: 'height 0.3s',
               }}
             />
           ))}
         </div>
 
-        {/* Story info */}
+        {/* Titolo e nome bambino */}
         <div className="text-center mb-8">
           <h2
             className="text-2xl font-bold mb-1"
@@ -207,7 +209,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
           )}
         </div>
 
-        {/* Progress bar */}
+        {/* Barra progresso */}
         <div className="mb-2">
           <input
             type="range"
@@ -217,7 +219,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
             onChange={handleSeek}
             className="w-full h-2 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, var(--primary) ${progressPercent}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${progressPercent}%)`,
+              background: `linear-gradient(to right, ${accentColor} ${progressPercent}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${progressPercent}%)`,
               WebkitAppearance: 'none',
             }}
           />
@@ -230,7 +232,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
           <span>{formatTime(duration)}</span>
         </div>
 
-        {/* Controls */}
+        {/* Controlli */}
         <div className="flex items-center justify-center gap-6 mb-8">
           <motion.button
             whileTap={{ scale: 0.9 }}
@@ -245,17 +247,17 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
             <SkipBack size={20} />
           </motion.button>
 
-          {/* Play/Pause */}
+          {/* Play/Pausa */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.06 }}
             onClick={togglePlay}
             disabled={isLoading}
-            className="w-20 h-20 rounded-full flex items-center justify-center shadow-xl transition-all"
+            className="w-20 h-20 rounded-full flex items-center justify-center shadow-xl"
             style={{
               background: nightMode
                 ? 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)'
-                : 'linear-gradient(135deg, var(--primary) 0%, #f4a261 100%)',
+                : (coverBg ?? 'linear-gradient(135deg, var(--primary) 0%, #f4a261 100%)'),
               color: '#ffffff',
             }}
             aria-label={isPlaying ? 'Pausa' : 'Riproduci'}
@@ -301,7 +303,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji }: Aud
             onChange={handleVolume}
             className="flex-1 h-1.5 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, ${nightMode ? '#7c3aed' : 'var(--primary)'} ${(isMuted ? 0 : volume) * 100}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${(isMuted ? 0 : volume) * 100}%)`,
+              background: `linear-gradient(to right, ${accentColor} ${(isMuted ? 0 : volume) * 100}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${(isMuted ? 0 : volume) * 100}%)`,
               WebkitAppearance: 'none',
             }}
             aria-label="Volume"

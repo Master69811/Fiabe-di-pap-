@@ -1,102 +1,251 @@
 @import "tailwindcss";
 
+/* ============================================
+   Fiabe di Papà — Design System
+   Tema: mondo delle fiabe digitale
+   Ispirazione: libro illustrato che prende vita
+   ============================================ */
+
 :root {
-  --background: #fdf8f0;
-  --foreground: #2d1b0e;
-  --primary: #e8834a;
-  --primary-dark: #c96b32;
-  --secondary: #7ec8a4;
-  --accent: #f4c65a;
-  --muted: #f5ede0;
-  --muted-foreground: #8b6b4a;
-  --card: #ffffff;
-  --card-foreground: #2d1b0e;
-  --border: #e8d5b7;
-  --ring: #e8834a;
-  --radius: 1rem;
-  --night-bg: #0d0a1a;
-  --night-fg: #e8d5ff;
+  /* Colori principali */
+  --primary: #FF8C42;
+  --primary-dark: #e06c28;
+  --primary-light: #FFB380;
+
+  /* Magico / Viola */
+  --magic: #9B59B6;
+  --magic-light: #C39BD3;
+
+  /* Verde bosco */
+  --forest: #27AE60;
+  --forest-light: #82E0AA;
+
+  /* Azzurro cielo */
+  --sky: #3498DB;
+  --sky-light: #85C1E9;
+
+  /* Rosa fiabesco */
+  --fairy: #FF6B9D;
+  --fairy-light: #FFB3CC;
+
+  /* Giallo stella */
+  --star: #F39C12;
+  --star-light: #FAD7A0;
+
+  /* Neutri caldi */
+  --background: #FFF9F0;
+  --surface: #FFFFFF;
+  --muted: #FFF3E0;
+  --muted-foreground: #8D6E63;
+
+  /* Testi */
+  --foreground: #3E2723;
+  --foreground-soft: #5D4037;
+  --border: #FFE0B2;
+
+  /* Notte */
+  --night-bg: #0D0B1A;
+  --night-surface: #1A1530;
+  --night-fg: #E8D5FF;
+  --night-border: #2D1F5E;
+  --night-star: #FFD700;
+
+  /* Radii */
+  --radius-sm: 0.75rem;
+  --radius-md: 1.25rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: Georgia, 'Times New Roman', serif;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html, body {
-  height: 100%;
-}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Georgia, 'Times New Roman', serif;
+  font-family: 'Nunito', 'Quicksand', Georgia, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar */
+/* ============================================
+   Scrollbar
+   ============================================ */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--muted); }
-::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--primary-dark); }
+::-webkit-scrollbar-track { background: var(--muted); border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
 
-/* Soundwave animation */
+/* ============================================
+   Animazioni
+   ============================================ */
+
+/* Soundwave */
 @keyframes soundwave {
-  0%, 100% { transform: scaleY(0.3); }
+  0%, 100% { transform: scaleY(0.25); }
   50% { transform: scaleY(1); }
 }
-
 .soundwave-bar {
-  animation: soundwave 1.2s ease-in-out infinite;
+  animation: soundwave 1.4s ease-in-out infinite;
   transform-origin: bottom;
 }
-.soundwave-bar:nth-child(1) { animation-delay: 0.0s; }
-.soundwave-bar:nth-child(2) { animation-delay: 0.1s; }
-.soundwave-bar:nth-child(3) { animation-delay: 0.2s; }
-.soundwave-bar:nth-child(4) { animation-delay: 0.3s; }
-.soundwave-bar:nth-child(5) { animation-delay: 0.4s; }
-.soundwave-bar:nth-child(6) { animation-delay: 0.2s; }
-.soundwave-bar:nth-child(7) { animation-delay: 0.1s; }
+.soundwave-bar:nth-child(1) { animation-delay: 0.00s; }
+.soundwave-bar:nth-child(2) { animation-delay: 0.10s; }
+.soundwave-bar:nth-child(3) { animation-delay: 0.20s; }
+.soundwave-bar:nth-child(4) { animation-delay: 0.30s; }
+.soundwave-bar:nth-child(5) { animation-delay: 0.40s; }
+.soundwave-bar:nth-child(6) { animation-delay: 0.20s; }
+.soundwave-bar:nth-child(7) { animation-delay: 0.10s; }
 
-/* Night mode */
+/* Float */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-12px) rotate(3deg); }
+  66% { transform: translateY(-6px) rotate(-2deg); }
+}
+.float { animation: float 4s ease-in-out infinite; }
+
+/* Float varianti */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
+}
+.float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* Twinkle stelle */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.2); }
+}
+.twinkle { animation: twinkle 2s ease-in-out infinite; }
+
+/* Pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 140, 66, 0.3); }
+  50% { box-shadow: 0 0 50px rgba(255, 140, 66, 0.7), 0 0 80px rgba(255, 140, 66, 0.3); }
+}
+.pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background-size: 200% auto;
+  animation: shimmer 2s linear infinite;
+}
+
+/* Bounce soft */
+@keyframes bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.bounce-soft { animation: bounce-soft 2s ease-in-out infinite; }
+
+/* Spin slow */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.spin-slow { animation: spin-slow 20s linear infinite; }
+
+/* ============================================
+   Night mode
+   ============================================ */
 .night-mode {
   background-color: var(--night-bg) !important;
   color: var(--night-fg) !important;
 }
+.night-mode .night-surface {
+  background-color: var(--night-surface) !important;
+  border-color: var(--night-border) !important;
+}
+.night-mode .night-text { color: var(--night-fg) !important; }
 
-.night-mode .night-card {
-  background-color: #1a1230 !important;
-  border-color: #2d1f5e !important;
+/* ============================================
+   Card magic hover
+   ============================================ */
+.story-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.story-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
 }
 
-/* Floating stars animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.float-animation {
-  animation: float 3s ease-in-out infinite;
-}
-
-/* Pulse glow for playing state */
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(232, 131, 74, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(232, 131, 74, 0.6); }
-}
-
-.pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-/* Stars background */
+/* ============================================
+   Sfondo stelle decorative
+   ============================================ */
 .stars-bg {
-  background-image: radial-gradient(circle at 20% 80%, rgba(232, 131, 74, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(126, 200, 164, 0.05) 0%, transparent 50%),
-    radial-gradient(circle at 40% 40%, rgba(244, 198, 90, 0.03) 0%, transparent 50%);
+  background-image:
+    radial-gradient(circle at 15% 85%, rgba(255,140,66,0.08) 0%, transparent 45%),
+    radial-gradient(circle at 85% 15%, rgba(155,89,182,0.08) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(243,156,18,0.04) 0%, transparent 60%);
+}
+
+/* ============================================
+   Fantasy gradients
+   ============================================ */
+.gradient-magic { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+.gradient-sunset { background: linear-gradient(135deg, #FF8C42 0%, #FF6B9D 100%); }
+.gradient-forest { background: linear-gradient(135deg, #27AE60 0%, #3498DB 100%); }
+.gradient-night { background: linear-gradient(135deg, #0D0B1A 0%, #1A1530 50%, #2D1F5E 100%); }
+.gradient-dawn { background: linear-gradient(135deg, #FCB69F 0%, #FFECD2 100%); }
+.gradient-sky { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+
+/* ============================================
+   Typography
+   ============================================ */
+.text-story { font-family: Georgia, 'Times New Roman', serif; line-height: 1.8; }
+.font-display { font-family: 'Nunito', Georgia, sans-serif; font-weight: 800; }
+
+/* ============================================
+   Emoji covers
+   ============================================ */
+.emoji-cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-lg);
+  font-size: 3.5rem;
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+}
+.emoji-cover::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%);
+}
+
+/* ============================================
+   Progress bar custom
+   ============================================ */
+.progress-bar {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  cursor: pointer;
+  width: 100%;
+}
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(255,140,66,0.4);
+}
+.progress-bar::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 10px;
 }

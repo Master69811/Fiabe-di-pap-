@@ -1,14 +1,18 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Nunito } from 'next/font/google'
 import { Toaster } from '@/components/ui/toast'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800', '900'],
+  variable: '--font-nunito',
+})
 
 export const metadata: Metadata = {
   title: 'Fiabe di Papà – La tua voce racconta le sue storie',
   description:
-    'Una piattaforma magica dove la tua voce narrata racconta fiabe personalizzate ai tuoi bambini. Clonazione vocale AI per creare ricordi indimenticabili.',
+    'Una piattaforma magica dove la tua voce racconta fiabe personalizzate ai tuoi bambini. Clonazione vocale AI per creare ricordi indimenticabili.',
   keywords: ['fiabe', 'bambini', 'voce', 'storie', 'nanna', 'personalizzate', 'AI'],
   openGraph: {
     title: 'Fiabe di Papà',
@@ -23,8 +27,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="it" className="h-full">
-      <body className={`${inter.className} min-h-full flex flex-col antialiased`}>
+    <html lang="it" className={`h-full ${nunito.variable}`}>
+      <body className="min-h-full flex flex-col antialiased font-[family-name:var(--font-nunito)]">
         {children}
         <Toaster />
       </body>

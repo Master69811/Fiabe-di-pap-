@@ -3,6 +3,8 @@ import { Story } from '@/types'
 export const storiesCatalog: Story[] = [
   {
     id: 'il-leone-e-il-topo',
+    cover_color: 'linear-gradient(135deg, #F39C12, #E67E22)',
+    relaxation_level: 3,
     title: 'Il Leone e il Topo',
     description:
       'Un piccolo topo aiuta il re della foresta quando ne ha più bisogno. Una storia sulla gentilezza e sul fatto che anche i più piccoli possono fare grandi cose.',
@@ -53,6 +55,8 @@ Da quel giorno, il Leone e il Topo divennero i migliori amici della foresta. E t
   },
   {
     id: 'la-stella-cadente',
+    cover_color: 'linear-gradient(135deg, #6366F1, #A855F7)',
+    relaxation_level: 5,
     title: 'La Stella Cadente',
     description:
       'Una stellina impaurita cade dal cielo e scopre la bellezza del mondo notturno. Una storia delicata per addormentarsi sereni.',
@@ -97,7 +101,7 @@ E mentre dormiva, sognò di volare tra le stelle insieme a Lucilla, saltando da 
 La mattina dopo, quando Marco aprì la finestra, non vide Lucilla. Era tornata nel cielo. Ma tra le stelle del cielo notturno, ce n'era una più brillante delle altre: arancione, calda, che sembrava fare l'occhiolino.
 
 Sogni d'oro, piccolo.`,
-    category: 'fantasy',
+    category: 'magic',
     age_min: 4,
     age_max: 8,
     duration_minutes: 5,
@@ -111,6 +115,8 @@ Sogni d'oro, piccolo.`,
   },
   {
     id: 'il-drago-timido',
+    cover_color: 'linear-gradient(135deg, #3B82F6, #06B6D4)',
+    relaxation_level: 2,
     title: 'Il Drago Timido',
     description:
       'Fiamma è un drago che ha paura di soffiare fuoco. Scoprirà che le sue differenze sono in realtà i suoi punti di forza.',
@@ -163,6 +169,8 @@ Quella sera, guardando le stelle dalla grotta più bella della montagna, che il 
   },
   {
     id: 'la-foresta-degli-amici',
+    cover_color: 'linear-gradient(135deg, #14B8A6, #06B6D4)',
+    relaxation_level: 4,
     title: 'La Foresta degli Amici',
     description:
       'Quattro animali molto diversi imparano che le amicizie più belle nascono dalle differenze. Una storia dolce sulla vera amicizia.',
@@ -213,7 +221,7 @@ Quando il sole cominciò a scendere, i quattro amici si sedettero su un tronco e
 "Tutti e quattro la stessa cosa!" disse Volpina ridendo. "E invece guardate qui: quattro amici diversissimi, e nessuno che manca."
 
 Quella sera, tornando alle loro case, i quattro sapevano una cosa bellissima: gli amici migliori non sono quelli uguali a te, ma quelli che rendono il tuo mondo più grande e più colorato.`,
-    category: 'friendship',
+    category: 'family',
     age_min: 3,
     age_max: 7,
     duration_minutes: 6,
@@ -227,6 +235,8 @@ Quella sera, tornando alle loro case, i quattro sapevano una cosa bellissima: gl
   },
   {
     id: 'il-piccolo-nuvolino',
+    cover_color: 'linear-gradient(135deg, #93C5FD, #C4B5FD)',
+    relaxation_level: 5,
     title: 'Il Piccolo Nuvolino',
     description:
       'Un nuvolino che non riesce a fare la pioggia scopre il suo dono speciale: portare dolci sogni ai bambini che dormono.',
@@ -265,7 +275,7 @@ E così ogni sera, quando le luci delle case si spengono una ad una, se senti un
 È il piccolo Nuvolino che passa, e porta con sé i sogni più belli del cielo.
 
 Buonanotte.`,
-    category: 'fantasy',
+    category: 'magic',
     age_min: 3,
     age_max: 6,
     duration_minutes: 5,
@@ -279,6 +289,8 @@ Buonanotte.`,
   },
   {
     id: 'bruno-lorso-coraggioso',
+    cover_color: 'linear-gradient(135deg, #F97316, #EF4444)',
+    relaxation_level: 2,
     title: "Bruno l'Orso Coraggioso",
     description:
       'Bruno è un orsetto che ha paura del buio. La sua avventura notturna lo aiuterà a scoprire che il coraggio non è l\'assenza di paura, ma andare avanti nonostante essa.',
@@ -345,6 +357,8 @@ Il coraggio non era non aver paura. Il coraggio era andare avanti lo stesso, qua
   },
   {
     id: 'la-lumachina-veloce',
+    cover_color: 'linear-gradient(135deg, #22C55E, #84CC16)',
+    relaxation_level: 3,
     title: 'La Lumachina Veloce',
     description:
       'Lena la lumaca è stufa di essere la più lenta di tutti. Ma quando partecipa alla grande gara del prato, scopre che la velocità non è tutto.',
@@ -413,6 +427,8 @@ Il prato esplose in un boato di applausi. E Lena alzò le antenne orgogliosa, co
   },
   {
     id: 'il-paese-dei-sogni-doro',
+    cover_color: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
+    relaxation_level: 5,
     title: "Il Paese dei Sogni d'Oro",
     description:
       "Un bambino che non vuole dormire fa un viaggio magico nel paese dove nascono i sogni. Una storia pensata per addormentarsi serenamente.",
@@ -497,6 +513,8 @@ Buonanotte, piccolo. Il tuo sogno ti aspetta.`,
   },
   {
     id: 'la-principessa-delle-stelle',
+    cover_color: 'linear-gradient(135deg, #A855F7, #EC4899)',
+    relaxation_level: 4,
     title: 'La Principessa delle Stelle',
     description:
       'La principessa Aurora vive in un castello di cristallo tra le stelle. Quando una stella si spegne, parte in una missione per riaccenderla.',
@@ -549,7 +567,7 @@ Aurora, dal Castello delle Stelle, la guardò tornare alla vita e sorrise con gl
 Nel giardino delle stelle, ogni fiore luminoso ha bisogno di uno sguardo umano per continuare a brillare.
 
 Alzate gli occhi, bambini. Il cielo ha bisogno di voi.`,
-    category: 'fantasy',
+    category: 'magic',
     age_min: 5,
     age_max: 9,
     duration_minutes: 7,
@@ -563,6 +581,8 @@ Alzate gli occhi, bambini. Il cielo ha bisogno di voi.`,
   },
   {
     id: 'il-coniglio-e-il-seme-magico',
+    cover_color: 'linear-gradient(135deg, #16A34A, #15803D)',
+    relaxation_level: 4,
     title: 'Il Coniglio e il Seme Magico',
     description:
       "Pippo il coniglio trova un seme misterioso e scopre che con pazienza e cura, può farlo crescere in qualcosa di straordinario.",
@@ -627,6 +647,8 @@ E quella sera, prima di dormire, Pippo piantò un altro seme. Perché ora sapeva
   },
   {
     id: 'il-pesciolino-arcobaleno',
+    cover_color: 'linear-gradient(135deg, #06B6D4, #3B82F6)',
+    relaxation_level: 4,
     title: "Il Pesciolino Arcobaleno",
     description:
       'Arco è il pesciolino più bello del mare, con squame di tutti i colori. Ma la sua bellezza lo ha reso egoista, finché non scopre la vera felicità.',
@@ -687,7 +709,7 @@ E per la prima volta, Arco non nuotava più da solo. Nuotava circondato da amici
 "Non perché le mie squame siano le più belle," disse Arco. "Ma perché finalmente sono felice."
 
 E nel Grande Mare, tra i coralli e le alghe, una piccola danza colorata di pesciolini amici era la cosa più bella che si potesse vedere.`,
-    category: 'friendship',
+    category: 'family',
     age_min: 3,
     age_max: 6,
     duration_minutes: 6,
@@ -701,6 +723,8 @@ E nel Grande Mare, tra i coralli e le alghe, una piccola danza colorata di pesci
   },
   {
     id: 'il-cavaliere-gentile',
+    cover_color: 'linear-gradient(135deg, #F59E0B, #EF4444)',
+    relaxation_level: 2,
     title: 'Il Cavaliere Gentile',
     description:
       'Ser Guido è il cavaliere più forte del regno, ma anche il più gentile. La sua vera forza non è nel ferro della spada, ma nel ferro del suo carattere.',
@@ -773,6 +797,8 @@ Da quel giorno, nella foresta di Nord, il drago e i villaggi vivevano in pace. E
   },
   {
     id: 'la-volpe-e-luva',
+    cover_color: 'linear-gradient(135deg, #F97316, #A855F7)',
+    relaxation_level: 3,
     title: "La Volpe e l'Uva",
     description:
       "La famosa favola di Esopo rivisitata: la volpe astuta impara una lezione preziosa sulla differenza tra rassegnarsi e imparare dai propri limiti.",
@@ -847,6 +873,8 @@ La Volpe tornò a casa con il grappolo d'uva e con qualcosa in più: una lezione
   },
   {
     id: 'il-castello-delle-nuvole',
+    cover_color: 'linear-gradient(135deg, #0D0B1A, #2D1F5E)',
+    relaxation_level: 5,
     title: 'Il Castello delle Nuvole',
     description:
       'Ogni notte, quando i bambini si addormentano, un castello magico appare tra le nuvole. Questa è la storia di come ci si arriva.',
@@ -910,6 +938,8 @@ Buonanotte.`,
   },
   {
     id: 'micio-e-la-luna',
+    cover_color: 'linear-gradient(135deg, #E0E7FF, #818CF8)',
+    relaxation_level: 5,
     title: 'Micio e la Luna',
     description:
       'Micio il gattino è convinto che la luna sia il suo giocattolo personale. Una storia tenera e un po\' buffa per i più piccoli.',
@@ -988,6 +1018,340 @@ Buonanotte, gattini. Buonanotte, luna.`,
     tags: ['gatto', 'luna', 'notte', 'sonno', 'condivisione'],
     created_at: '2024-01-01T00:00:00Z',
   },
+
+  // ── EMOZIONI ────────────────────────────────────────────────────────────────
+
+  {
+    id: 'la-collera-di-matteo',
+    cover_color: 'linear-gradient(135deg, #EC4899, #EF4444)',
+    relaxation_level: 3,
+    title: 'La Collera di Matteo',
+    description:
+      'Matteo si arrabbia moltissimo quando la sorellina rompe il suo giocattolo preferito. Con l\'aiuto di papà impara che la rabbia è normale, ma si può esprimere senza fare del male.',
+    content: `Matteo aveva un castello di legno bellissimo che aveva costruito pezzo per pezzo con papà. C'erano la torre alta, il ponte levatoio, i soldatini di legno sulle mura.
+
+Un pomeriggio, tornando da scuola, trovò il castello per terra. I pezzi erano sparsi dappertutto.
+
+E in mezzo ai pezzi c'era Giulia, la sua sorellina di tre anni, che giocava tranquilla con i soldatini.
+
+Matteo sentì qualcosa di caldissimo salirgli dal petto alla gola. Come un vulcano che si sveglia.
+
+"GIULIA!" urlò così forte che la sorellina si spaventò e cominciò a piangere.
+
+Matteo batté il piede a terra. Gettò via il suo zaino. Sentiva le mani stringersi a pugno.
+
+Papà arrivò di corsa. Vide Matteo rosso in faccia, Giulia che piangeva, il castello rotto.
+
+"Matteo..." disse papà piano.
+
+"NON DOVEVA TOCCARLO! È MIO! LO ODIO!" urlò Matteo, e corse in camera sua sbattendo la porta.
+
+Si gettò sul letto. Il petto gli faceva male. Le lacrime gli bruciavano gli occhi.
+
+Dopo un po', bussò piano alla porta papà.
+
+"Posso entrare?" chiese.
+
+Matteo non rispose, ma papà aprì lo stesso e si sedette sul bordo del letto.
+
+"Sei molto arrabbiato," disse papà.
+
+"Sì," disse Matteo con la voce soffocata.
+
+"La rabbia fa male dentro, vero? Come un fuoco."
+
+"Sì."
+
+"Lo sai che la rabbia non è sbagliata?" disse papà.
+
+Matteo alzò la testa. "Ma ho urlato. Ho buttato lo zaino. Ho detto che odio Giulia."
+
+"Sì. Quello non va bene. Ma sentire la rabbia va benissimo. Il problema non è il fuoco dentro: è come lo facciamo uscire."
+
+Matteo ci pensò su. "Come si fa a farlo uscire senza fare del male?"
+
+Papà sorrise. "Ci sono tanti modi. Puoi stringere un cuscino. Puoi correre in giardino. Puoi respirare forte, come un drago che soffia aria. Puoi dire a parole com'è: 'Sono arrabbiatissimo perché il mio castello è rotto.'"
+
+Matteo ripeté sottovoce: "Sono arrabbiatissimo perché il mio castello è rotto."
+
+"Meglio?"
+
+"Un pochino."
+
+Insieme tornarono in salotto. Giulia aveva gli occhi ancora rossi.
+
+"Giulia," disse Matteo piano, "mi hai rotto il castello e mi sono arrabbiato moltissimo. Non devi toccare le mie cose senza chiedere."
+
+Giulia annuì seria. "Sowi," disse con la sua vocina piccola. "Sowy Matteo."
+
+Matteo guardò i pezzi per terra. Poi guardò la sorellina.
+
+"Vuoi aiutarmi a ricostruirlo?" disse alla fine.
+
+Il viso di Giulia si illuminò come una lampada.
+
+E quel pomeriggio, Matteo e Giulia ricostruirono il castello insieme. Ci vollero due ore. Era ancora più bello di prima.
+
+E Matteo capì una cosa: la rabbia era come un temporale. Arrivava forte, ma passava. E dopo il temporale, a volte, il cielo è più pulito di prima.`,
+    category: 'emotions',
+    age_min: 4,
+    age_max: 8,
+    duration_minutes: 7,
+    language_level: 'simple',
+    mood: 'tender',
+    is_ai_generated: false,
+    moral: 'La rabbia è normale. Quello che conta è come la esprimiamo: con le parole, non con le azioni che fanno male.',
+    cover_emoji: '❤️',
+    tags: ['rabbia', 'emozioni', 'famiglia', 'fratelli', 'sentimenti'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'le-lacrime-di-luna',
+    cover_color: 'linear-gradient(135deg, #EC4899, #8B5CF6)',
+    relaxation_level: 4,
+    title: 'Le Lacrime di Luna',
+    description:
+      'Luna si è trasferita in una nuova città e si sente sola e triste. La nonna le insegna che le lacrime non sono una debolezza: sono l\'acqua che fa crescere i fiori nel cuore.',
+    content: `Luna si chiamava così perché era nata in una notte di luna piena, e aveva gli occhi chiari come il cielo di agosto.
+
+Ma da quando si erano trasferiti nella nuova città, quegli occhi erano spesso pieni di lacrime.
+
+Mancava la sua vecchia casa, con il giardino e la magnolia in fiore. Mancavano le sue amiche. Mancava persino il rumore del vicino che suonava la fisarmonica il sabato mattina.
+
+In questa città tutto era diverso, e Luna si sentiva come un puzzle con i pezzi sbagliati.
+
+A scuola, gli altri bambini parlavano tra loro in gruppetti chiusi, e lei stava seduta da sola sul muretto durante la ricreazione, guardando le formiche che portavano le briciole.
+
+Una sera, mentre la nonna la stava mettendo a letto, Luna disse: "Nonna, mi fa male il cuore."
+
+La nonna si sedette vicino a lei sul letto. "Dove ti fa male?"
+
+"Qui," disse Luna, mettendo la mano sul petto. "Come se dentro ci fosse qualcosa di pesante."
+
+"Quella si chiama tristezza," disse la nonna dolcemente.
+
+"È una cosa brutta?"
+
+La nonna scosse la testa. "No, cucciola mia. La tristezza è una cosa umana. Tutti la sentono, anche i grandi, anche le nonne come me."
+
+Luna si tirò su le coperte fino al mento. "Ma io non voglio essere triste. È scomodo."
+
+"Lo so." La nonna sorrise. "Ma sai una cosa? Le lacrime non sono una debolezza. Sono come la pioggia."
+
+"La pioggia?"
+
+"Sì. Quando piove, sembra brutto. Il cielo è grigio, si bagna tutto. Ma dopo la pioggia, i fiori crescono. L'erba diventa più verde. L'aria profuma."
+
+Luna ci pensò su. "E le lacrime cosa fanno crescere?"
+
+"Fanno crescere i fiori nel cuore," disse la nonna. "Quando piangi perché ti mancano le tue amiche, stai innaffiando il posto dove nascerà una nuova amicizia. Quando piangi perché ti manca la vecchia casa, stai innaffiando il posto dove imparerai ad amare quella nuova."
+
+Luna sentì qualcosa allentarsi nel petto. Come se il peso si spostasse un poco.
+
+"E se i fiori non nascono?"
+
+"Nascono sempre," disse la nonna. "Ci vuole solo un po' di pazienza e un po' di pioggia."
+
+Luna lasciò scendere le lacrime che aveva trattenuto tutto il giorno. Scivolarono silenziose sulle guance, una per una.
+
+La nonna le asciugò dolcemente con il pollice.
+
+"Brava," disse sottovoce. "Lascia piovere."
+
+Il giorno dopo, a ricreazione, Luna era sul suo muretto quando una bambina con i capelli rossi si avvicinò e disse: "Ciao. Anch'io sono nuova. Posso sedermi qui?"
+
+Si chiamava Iris. E aveva gli occhi verdi come le foglie dopo la pioggia.
+
+Quella sera, Luna scrisse nel suo diario segreto: "Oggi la nonna aveva ragione. Dopo la pioggia, è spuntato un fiore."`,
+    category: 'emotions',
+    age_min: 5,
+    age_max: 9,
+    duration_minutes: 7,
+    language_level: 'medium',
+    mood: 'tender',
+    is_ai_generated: false,
+    moral: 'Piangere non è una debolezza. Le lacrime sono l\'acqua che fa crescere nuove amicizie e nuovi inizi.',
+    cover_emoji: '🌸',
+    tags: ['tristezza', 'emozioni', 'amicizia', 'nonna', 'lacrime', 'nuovi inizi'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+
+  // ── PICCOLI EROI ────────────────────────────────────────────────────────────
+
+  {
+    id: 'sofia-e-il-grande-noce',
+    cover_color: 'linear-gradient(135deg, #F97316, #DC2626)',
+    relaxation_level: 2,
+    title: 'Sofia e il Grande Noce',
+    description:
+      'Sofia scopre che abbatteranno il noce più vecchio del paese per costruire un parcheggio. Una bambina di sette anni che decide di non stare zitta può cambiare tutto.',
+    content: `Nella piazza del paese c'era un noce enorme, così antico che nessuno sapeva quanti anni avesse. Le sue radici sollevavano le pietre del selciato, i suoi rami facevano ombra su tutta la piazza, e in autunno le noci cadevano con un toc toc toc che sembrava musica.
+
+Sofia aveva sette anni e quell'albero era il suo regno. Ci aveva costruito sopra una casetta con papà, ci leggeva i libri d'estate, ci andava a fare i compiti quando il cielo era bello.
+
+Un martedì di settembre, tornando da scuola, Sofia vide un foglio attaccato al tronco del noce.
+
+"ABBATTIMENTO PROGRAMMATO" c'era scritto in lettere grandi. "L'area sarà destinata a nuovo parcheggio."
+
+Sofia rimase ferma a fissare quel foglio per un lungo momento.
+
+Poi tornò a casa di corsa.
+
+"Papà! Mamma! Vogliono tagliare il noce!"
+
+I genitori lessero il foglio. "Purtroppo il comune ha deciso," disse papà con voce stanca. "Probabilmente serve parcheggio per i negozi."
+
+"E l'albero?" disse Sofia.
+
+"Sofia, queste cose non le decidono i bambini."
+
+Sofia rimase in silenzio tutta la cena. Ma dentro stava pensando.
+
+Il giorno dopo, a scuola, raccontò tutto ai suoi amici. Tommi, Bea, Riccardo e Sara.
+
+"Dobbiamo fare qualcosa," disse Sofia.
+
+"Ma siamo bambini," disse Riccardo. "Chi ci ascolta?"
+
+"Non lo so. Ma proviamo."
+
+Quella settimana, i cinque amici si misero al lavoro. Fecero dei cartelloni colorati con scritto: "Il noce ha 200 anni. Un parcheggio no." Disegnarono l'albero con i colori più belli che avevano. Scrissero una lettera al sindaco, con la penna migliore di Sofia, spiegando quante cose vivevano su quell'albero: gli scoiattoli, i piccioni, le coccinelle, i bambini.
+
+La domenica, andarono in piazza con i cartelloni.
+
+La gente si fermava a guardare. Qualcuno rideva. Ma qualcuno leggeva i cartelloni e si fermava a parlare con loro.
+
+Una signora anziana disse: "Ho giocato sotto quell'albero quando avevo la vostra età."
+
+Un signore con la barba disse: "Mio nonno me ne parlava. Aveva già cent'anni allora."
+
+Un giornalista del giornale locale passò e fece una foto.
+
+La settimana dopo, la foto era sul giornale. "Bambini in difesa del noce secolare." Tante persone chiamarono il comune.
+
+E il comune convocò una riunione. Sofia e i suoi amici ci andarono, con i loro genitori.
+
+Il sindaco era un signore grande e serio. Guardò Sofia.
+
+"Sei tu quella del noce?"
+
+"Sì," disse Sofia.
+
+"Perché ti importa tanto?"
+
+Sofia pensò un momento. Poi disse: "Perché alcune cose non si possono rifare. Un parcheggio sì. Un albero di duecento anni no."
+
+Il sindaco rimase in silenzio a lungo. Poi disse: "Troveremo un altro posto per il parcheggio."
+
+Quando Sofia tornò a casa quella sera, andò sotto il noce e appoggiò la mano alla corteccia rugosa.
+
+"Ti ho difeso," disse piano.
+
+Il vento mosse le foglie, e parve quasi che l'albero rispondesse.
+
+Da quel giorno, nel paese, tutti conoscevano Sofia. Non come "la bambina del noce", ma come la bambina che aveva dimostrato che anche una voce piccola, se dice la cosa giusta, può essere ascoltata da tutti.`,
+    category: 'heroes',
+    age_min: 6,
+    age_max: 10,
+    duration_minutes: 8,
+    language_level: 'medium',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: 'Anche una voce piccola può fare grandi cose. Non bisogna mai stare zitti davanti alle ingiustizie.',
+    cover_emoji: '🦸',
+    tags: ['coraggio', 'eroi', 'natura', 'ambiente', 'bambini', 'differenza'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'luca-e-il-gattino-nero',
+    cover_color: 'linear-gradient(135deg, #F59E0B, #F97316)',
+    relaxation_level: 3,
+    title: 'Luca e il Gattino Nero',
+    description:
+      'Luca è il più piccolo della classe, ma quando vede un gattino in pericolo non si tira indietro. I veri eroi non aspettano di essere grandi.',
+    content: `Luca era il più piccolo della classe quarta. Non il più basso, non il più magro: proprio il più piccolo in tutto. Piccola voce, piccole mani, piccoli passi.
+
+Gli altri lo chiamavano "Lucino" e lui non diceva niente, anche se dentro si stringeva come un pungo chiuso.
+
+Un pomeriggio di novembre, Luca stava tornando da scuola da solo quando sentì un miagolio.
+
+Si fermò. Guardò intorno. Niente.
+
+Poi sentì di nuovo: miiii... miiii... sottile come un filo di seta.
+
+Veniva da un tombino sul bordo del marciapiede.
+
+Luca si avvicinò e guardò dentro. Nel buio, due occhioni gialli lo fissavano.
+
+Un gattino nero era caduto nel tombino e non riusciva a uscire.
+
+Luca guardò il tombino. Poi guardò le sue mani piccole.
+
+C'era un coperchio di ferro pesante che chiudeva il tombino. Luca ci provò. Non si muoveva. Ci riprovò con tutte le sue forze. Neanche un millimetro.
+
+Si rialzò e si guardò intorno. Il marciapiede era deserto.
+
+Poi vide, dall'altra parte della strada, il negozio del signor Beppe, il ferramenta.
+
+Luca attraversò di corsa e aprì la porta del negozio.
+
+"Signor Beppe! C'è un gattino nel tombino in via Verdi! Non riesco ad aprire il coperchio!"
+
+Il signor Beppe era un uomo grande e lento. "Un gattino?"
+
+"Sì! Viene da lì dentro! Miagola!"
+
+Il signor Beppe prese una leva da dietro il bancone e seguì Luca di corsa.
+
+Con la leva, il coperchio si aprì in un secondo.
+
+Il gattino nero schizzò fuori come una freccia, poi si fermò a qualche metro di distanza e li guardò con i suoi occhioni gialli.
+
+Era piccolo e spelacchiato e aveva una zampina che teneva sollevata.
+
+"Poverino," disse il signor Beppe. "Ha una zampa ferita."
+
+Luca si accucciò lentamente. "Sst. Non aver paura."
+
+Il gattino lo guardò. Poi, piano piano, si avvicinò.
+
+Luca lo prese in braccio con delicatezza. Il gattino si lasciò tenere, tremando un poco.
+
+Il signor Beppe portò il gattino dal veterinario vicino. La zampina non era rotta, solo graffiata. Con un po' di cure sarebbe guarita.
+
+"Come lo chiamiamo?" chiese il veterinario.
+
+Luca ci pensò su. "Nero," disse. "Come il buio del tombino da cui è uscito."
+
+Quella sera, quando Luca tornò a casa con il gattino in braccio, sua mamma aprì la porta con la faccia sorpresa.
+
+"Chi è questo?"
+
+"Nero. L'ho salvato."
+
+La mamma guardò il figlio, piccolo e serio, con quel gattino tremante tra le braccia.
+
+"Come hai fatto?"
+
+"Ho chiesto aiuto," disse Luca semplicemente.
+
+Quella notte, Nero dormì ai piedi del letto di Luca, facendo le fusa.
+
+E Luca capì una cosa: non serve essere grandi per fare cose grandi. Serve solo stare attenti, non voltarsi dall'altra parte, e non aver paura di chiedere aiuto quando ne hai bisogno.
+
+I veri eroi non aspettano di crescere.`,
+    category: 'heroes',
+    age_min: 5,
+    age_max: 9,
+    duration_minutes: 7,
+    language_level: 'simple',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: 'Non serve essere grandi per fare grandi cose. I veri eroi stanno attenti, agiscono e chiedono aiuto.',
+    cover_emoji: '🦸',
+    tags: ['coraggio', 'eroi', 'gatto', 'animali', 'aiuto', 'piccoli eroi'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
 ]
 
 export function getStoryById(id: string): Story | undefined {
@@ -1007,6 +1371,10 @@ export function getStoriesByAge(age: number): Story[] {
 
 export function getStoriesForBedtime(): Story[] {
   return storiesCatalog.filter(
-    (story) => story.category === 'sleep' || story.mood === 'calm' || story.mood === 'cozy'
+    (story) => story.category === 'sleep' || story.mood === 'calm' || story.mood === 'cozy' || story.relaxation_level >= 4
   )
+}
+
+export function getStoriesByRelaxation(minLevel: number): Story[] {
+  return storiesCatalog.filter((story) => story.relaxation_level >= minLevel)
 }

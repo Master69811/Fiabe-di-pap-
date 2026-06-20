@@ -1,34 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Clock, Users, Sparkles, BookOpen } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
-import { Story, StoryCategory, StoryMood } from '@/types'
+import { Clock, Users } from 'lucide-react'
+import { Story, StoryCategory, StoryMood, CATEGORY_META } from '@/types'
 
 interface StoryCardProps {
   story: Story
   onPlay?: (story: Story) => void
   childName?: string
-}
-
-const categoryLabels: Record<StoryCategory, string> = {
-  adventure: 'Avventura',
-  fantasy: 'Fantasia',
-  animals: 'Animali',
-  educational: 'Educativa',
-  sleep: 'Per la notte',
-  friendship: 'Amicizia',
-}
-
-const categoryColors: Record<StoryCategory, { bg: string; text: string }> = {
-  adventure: { bg: '#fef3c7', text: '#92400e' },
-  fantasy: { bg: '#ede9fe', text: '#5b21b6' },
-  animals: { bg: '#d1fae5', text: '#065f46' },
-  educational: { bg: '#dbeafe', text: '#1e40af' },
-  sleep: { bg: '#e0e7ff', text: '#3730a3' },
-  friendship: { bg: '#fce7f3', text: '#9d174d' },
 }
 
 const moodLabels: Record<StoryMood, string> = {
@@ -37,115 +16,113 @@ const moodLabels: Record<StoryMood, string> = {
   funny: '😄 Divertente',
   magical: '✨ Magica',
   cozy: '🤗 Accogliente',
+  tender: '💛 Tenera',
 }
 
+const relaxationStars = (level: number) => '★'.repeat(level) + '☆'.repeat(5 - level)
+
 export function StoryCard({ story, onPlay, childName }: StoryCardProps) {
-  const catColor = categoryColors[story.category]
+  const meta = CATEGORY_META[story.category as StoryCategory]
 
   return (
     <motion.div
-      whileHover={{ scale: 1.02, y: -4 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      className="story-card cursor-pointer h-full"
+      whileHover={{ scale: 1.03, y: -6 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 320, damping: 22 }}
+      onClick={() => onPlay?.(story)}
     >
-      <Card className="overflow-hidden h-full flex flex-col transition-shadow duration-300 hover:shadow-xl">
-        {/* Cover art */}
+      <div
+        className="rounded-3xl overflow-hidden h-full flex flex-col shadow-md"
+        style={{ backgroundColor: 'var(--surface)', border: '2px solid var(--border)' }}
+      >
+        {/* Cover con gradiente dalla storia */}
         <div
-          className="flex items-center justify-center py-8"
-          style={{
-            background: 'linear-gradient(135deg, var(--muted) 0%, var(--border) 100%)',
-          }}
+          className="flex items-center justify-center py-10 relative overflow-hidden"
+          style={{ background: story.cover_color }}
         >
-          <motion.div
-            className="w-24 h-24 rounded-full flex items-center justify-center text-5xl shadow-lg"
+          {/* Cerchio luminoso decorativo */}
+          <div
+            className="absolute inset-0 opacity-20"
             style={{
-              background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
+              background: 'radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6) 0%, transparent 60%)',
             }}
-            whileHover={{ rotate: [0, -5, 5, 0] }}
-            transition={{ duration: 0.5 }}
+          />
+          <motion.div
+            className="text-6xl relative z-10 drop-shadow-lg"
+            whileHover={{ rotate: [0, -8, 8, 0], transition: { duration: 0.4 } }}
           >
             {story.cover_emoji}
           </motion.div>
+
+          {/* Livello rilassamento (stelle) in alto a destra */}
+          <div className="absolute top-3 right-3 text-xs text-white/80 font-bold tracking-widest">
+            {relaxationStars(story.relaxation_level)}
+          </div>
         </div>
 
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-1 gap-3">
-          {/* Category & Mood badges */}
-          <div className="flex flex-wrap gap-2">
-            <span
-              className="inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold"
-              style={{ backgroundColor: catColor.bg, color: catColor.text }}
-            >
-              {categoryLabels[story.category]}
-            </span>
-            <span
-              className="inline-flex items-center rounded-full px-3 py-0.5 text-xs font-semibold"
-              style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}
-            >
-              {moodLabels[story.mood]}
-            </span>
-          </div>
+        {/* Corpo della card */}
+        <div className="p-4 flex flex-col flex-1 gap-2">
+          {/* Badge categoria */}
+          {meta && (
+            <div className="flex items-center gap-1">
+              <span
+                className="text-xs font-bold px-2.5 py-0.5 rounded-full"
+                style={{ backgroundColor: meta.color + '22', color: meta.color }}
+              >
+                {meta.emoji} {meta.label}
+              </span>
+              <span
+                className="text-xs px-2.5 py-0.5 rounded-full ml-auto"
+                style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}
+              >
+                {moodLabels[story.mood]}
+              </span>
+            </div>
+          )}
 
-          {/* Title */}
-          <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--foreground)' }}>
+          {/* Titolo */}
+          <h3
+            className="text-base font-bold leading-tight"
+            style={{ color: 'var(--foreground)' }}
+          >
             {story.title}
           </h3>
 
-          {/* Description */}
+          {/* Descrizione */}
           <p
-            className="text-sm leading-relaxed line-clamp-3 flex-1"
+            className="text-xs leading-relaxed line-clamp-2 flex-1"
             style={{ color: 'var(--muted-foreground)' }}
           >
             {story.description}
           </p>
 
           {/* Meta info */}
-          <div className="flex items-center gap-4 text-xs" style={{ color: 'var(--muted-foreground)' }}>
+          <div
+            className="flex items-center gap-3 text-xs mt-1"
+            style={{ color: 'var(--muted-foreground)' }}
+          >
             <span className="flex items-center gap-1">
-              <Clock size={12} />
+              <Clock size={11} />
               {story.duration_minutes} min
             </span>
             <span className="flex items-center gap-1">
-              <Users size={12} />
-              {story.age_min}-{story.age_max} anni
+              <Users size={11} />
+              {story.age_min}–{story.age_max} anni
             </span>
-            {story.moral && (
-              <span className="flex items-center gap-1">
-                <Sparkles size={12} />
-                <span className="truncate max-w-[120px]" title={story.moral}>
-                  Morale
-                </span>
-              </span>
-            )}
           </div>
 
-          {/* Tags */}
-          {story.tags.length > 0 && (
-            <div className="flex flex-wrap gap-1">
-              {story.tags.slice(0, 3).map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs px-2 py-0.5 rounded-full"
-                  style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {/* CTA button */}
-          <Button
-            onClick={() => onPlay?.(story)}
-            className="w-full mt-2 gap-2"
-            size="default"
+          {/* Pulsante ascolta */}
+          <motion.button
+            className="w-full mt-2 py-2.5 rounded-2xl font-bold text-sm text-white shadow-sm transition-opacity"
+            style={{ background: story.cover_color }}
+            whileHover={{ opacity: 0.9 }}
+            whileTap={{ scale: 0.97 }}
           >
-            <BookOpen size={16} />
-            Ascolta
-            {childName ? ` con ${childName}` : ''}
-          </Button>
+            🎧 Ascolta{childName ? ` con ${childName}` : ''}
+          </motion.button>
         </div>
-      </Card>
+      </div>
     </motion.div>
   )
 }

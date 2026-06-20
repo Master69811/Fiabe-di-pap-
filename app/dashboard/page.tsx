@@ -7,21 +7,14 @@ import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Plus, Mic, AlertTriangle, Wand2 } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
-import { storiesCatalog, getStoriesByCategory } from '@/lib/stories-catalog'
+import { getStoriesByCategory } from '@/lib/stories-catalog'
 import { StoryCard } from '@/components/StoryCard'
 import { ChildProfileCard } from '@/components/ChildProfileCard'
+import { Mascot } from '@/components/Mascot'
+import { CategoryGrid } from '@/components/CategoryGrid'
+import { DurationSelector } from '@/components/DurationSelector'
 import { Button } from '@/components/ui/button'
-import { Family, ChildProfile, Story, StoryCategory } from '@/types'
-
-const categoryTabs: { key: string; label: string }[] = [
-  { key: 'all', label: 'Tutte' },
-  { key: 'adventure', label: 'Avventura' },
-  { key: 'fantasy', label: 'Fantasia' },
-  { key: 'animals', label: 'Animali' },
-  { key: 'educational', label: 'Educative' },
-  { key: 'sleep', label: 'Per la notte' },
-  { key: 'friendship', label: 'Amicizia' },
-]
+import { Family, ChildProfile, Story, StoryDuration } from '@/types'
 
 export default function DashboardPage() {
   const router = useRouter()
@@ -31,6 +24,7 @@ export default function DashboardPage() {
   const [children, setChildren] = useState<ChildProfile[]>([])
   const [selectedChild, setSelectedChild] = useState<ChildProfile | null>(null)
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedDuration, setSelectedDuration] = useState<StoryDuration>('classic')
   const [ageFilter, setAgeFilter] = useState<number | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -84,8 +78,9 @@ export default function DashboardPage() {
 
   const handlePlayStory = (story: Story) => {
     const params = new URLSearchParams()
-    if (selectedChild) params.set('childName', selectedChild.name)
+    if (selectedChild) params.set('child', selectedChild.name)
     if (family?.elevenlabs_voice_id) params.set('voiceId', family.elevenlabs_voice_id)
+    params.set('duration', selectedDuration)
     router.push(`/play/${story.id}?${params.toString()}`)
   }
 
@@ -98,11 +93,16 @@ export default function DashboardPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="flex flex-col items-center gap-4">
-          <div
-            className="w-12 h-12 rounded-full border-4 border-t-transparent animate-spin"
-            style={{ borderColor: 'var(--border)', borderTopColor: 'var(--primary)' }}
-          />
-          <p style={{ color: 'var(--muted-foreground)' }}>Caricamento...</p>
+          <motion.div
+            className="text-6xl"
+            animate={{ rotate: [0, 10, -10, 0], y: [0, -8, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            🦉
+          </motion.div>
+          <p className="font-bold" style={{ color: 'var(--muted-foreground)' }}>
+            Preparo le storie...
+          </p>
         </div>
       </div>
     )
@@ -110,12 +110,22 @@ export default function DashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 space-y-10">
-      {/* Voice setup banner */}
+
+      {/* Mascotte + saluto */}
+      <motion.section
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        <Mascot childName={selectedChild?.name} />
+      </motion.section>
+
+      {/* Banner configurazione voce */}
       {family && !family.has_voice_setup && (
         <motion.div
           initial={{ opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
-          className="rounded-2xl p-6 border-2 flex flex-col sm:flex-row items-center gap-4"
+          className="rounded-3xl p-5 border-2 flex flex-col sm:flex-row items-center gap-4"
           style={{
             backgroundColor: '#fffbeb',
             borderColor: '#f59e0b',
@@ -129,13 +139,13 @@ export default function DashboardPage() {
                 La tua voce non è ancora configurata
               </h3>
               <p className="text-sm mt-0.5" style={{ color: '#78350f' }}>
-                Configura la tua voce per ascoltare le storie con il tuo timbro personale.
+                Registra la tua voce per far sentire ai bambini le storie con il tuo timbro.
               </p>
             </div>
           </div>
           <Button
             onClick={() => router.push('/voice-setup')}
-            className="gap-2 flex-shrink-0"
+            className="gap-2 flex-shrink-0 rounded-2xl"
             style={{ backgroundColor: '#f59e0b', color: 'white' }}
           >
             <Mic size={16} />
@@ -144,26 +154,26 @@ export default function DashboardPage() {
         </motion.div>
       )}
 
-      {/* Children profiles section */}
+      {/* Profili bambini */}
       <section>
-        <div className="flex items-center justify-between mb-5">
-          <h2 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
-            I tuoi bambini
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+            👶 I tuoi bambini
           </h2>
           <Button
             variant="outline"
             size="sm"
             onClick={() => router.push('/profile')}
-            className="gap-2"
+            className="gap-2 rounded-2xl"
           >
-            <Plus size={16} />
+            <Plus size={15} />
             Aggiungi
           </Button>
         </div>
 
         {children.length === 0 ? (
           <div
-            className="rounded-2xl border-2 border-dashed p-10 text-center"
+            className="rounded-3xl border-2 border-dashed p-10 text-center"
             style={{ borderColor: 'var(--border)' }}
           >
             <div className="text-5xl mb-3">🧒</div>
@@ -173,7 +183,7 @@ export default function DashboardPage() {
             <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>
               Aggiungi il profilo del tuo bambino per storie personalizzate
             </p>
-            <Button onClick={() => router.push('/profile')} className="gap-2">
+            <Button onClick={() => router.push('/profile')} className="gap-2 rounded-2xl">
               <Plus size={16} />
               Aggiungi bambino
             </Button>
@@ -193,82 +203,73 @@ export default function DashboardPage() {
         )}
       </section>
 
-      {/* Story catalog */}
+      {/* Selettore durata */}
       <section>
-        <div className="flex items-center justify-between mb-5 flex-wrap gap-3">
-          <h2 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>
-            Catalogo storie
+        <DurationSelector selected={selectedDuration} onChange={setSelectedDuration} />
+      </section>
+
+      {/* Catalogo storie */}
+      <section>
+        <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
+          <h2 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+            📚 Scegli la storia
             {selectedChild && (
-              <span className="text-lg font-normal ml-2" style={{ color: 'var(--muted-foreground)' }}>
+              <span className="text-base font-normal ml-2" style={{ color: 'var(--muted-foreground)' }}>
                 per {selectedChild.name}
               </span>
             )}
           </h2>
           <Button
             onClick={() => router.push('/profile?create-story=1')}
-            className="gap-2"
-            style={{ backgroundColor: '#7c3aed', color: 'white' }}
+            className="gap-2 rounded-2xl text-sm"
+            style={{ background: 'linear-gradient(135deg, #7c3aed, #a855f7)', color: 'white' }}
             size="sm"
           >
-            <Wand2 size={16} />
+            <Wand2 size={15} />
             Crea storia AI
           </Button>
         </div>
 
-        {/* Category tabs */}
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-4 no-scrollbar">
-          {categoryTabs.map((tab) => (
+        {/* Griglia categorie */}
+        <div className="mb-6">
+          <CategoryGrid selected={selectedCategory} onChange={setSelectedCategory} />
+        </div>
+
+        {/* Filtro età */}
+        <div className="flex items-center gap-2 mb-6 flex-wrap">
+          <span className="text-xs font-bold" style={{ color: 'var(--muted-foreground)' }}>
+            Età:
+          </span>
+          <button
+            onClick={() => setAgeFilter(null)}
+            className="px-3 py-1 rounded-full text-xs font-bold transition-all"
+            style={{
+              backgroundColor: ageFilter === null ? 'var(--primary)' : 'var(--muted)',
+              color: ageFilter === null ? 'white' : 'var(--muted-foreground)',
+            }}
+          >
+            Tutte
+          </button>
+          {[3, 4, 5, 6, 7, 8, 9, 10].map((age) => (
             <button
-              key={tab.key}
-              onClick={() => setSelectedCategory(tab.key)}
-              className="flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all"
+              key={age}
+              onClick={() => setAgeFilter(age)}
+              className="px-3 py-1 rounded-full text-xs font-bold transition-all"
               style={{
-                backgroundColor:
-                  selectedCategory === tab.key ? 'var(--primary)' : 'var(--muted)',
-                color: selectedCategory === tab.key ? 'white' : 'var(--muted-foreground)',
+                backgroundColor: ageFilter === age ? 'var(--primary)' : 'var(--muted)',
+                color: ageFilter === age ? 'white' : 'var(--muted-foreground)',
               }}
             >
-              {tab.label}
+              {age}+
             </button>
           ))}
         </div>
 
-        {/* Age filter */}
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-sm font-medium" style={{ color: 'var(--muted-foreground)' }}>
-            Età:
-          </span>
-          <div className="flex gap-2 flex-wrap">
-            <button
-              onClick={() => setAgeFilter(null)}
-              className="px-3 py-1 rounded-full text-xs font-medium transition-all"
-              style={{
-                backgroundColor: ageFilter === null ? 'var(--secondary)' : 'var(--muted)',
-                color: ageFilter === null ? '#1a4a32' : 'var(--muted-foreground)',
-              }}
-            >
-              Tutte le età
-            </button>
-            {[3, 4, 5, 6, 7, 8, 9, 10].map((age) => (
-              <button
-                key={age}
-                onClick={() => setAgeFilter(age)}
-                className="px-3 py-1 rounded-full text-xs font-medium transition-all"
-                style={{
-                  backgroundColor: ageFilter === age ? 'var(--secondary)' : 'var(--muted)',
-                  color: ageFilter === age ? '#1a4a32' : 'var(--muted-foreground)',
-                }}
-              >
-                {age}+
-              </button>
-            ))}
-          </div>
-        </div>
-
         {filteredStories.length === 0 ? (
-          <div className="text-center py-12" style={{ color: 'var(--muted-foreground)' }}>
-            <div className="text-4xl mb-3">🔍</div>
-            <p>Nessuna storia trovata per questi filtri.</p>
+          <div className="text-center py-16" style={{ color: 'var(--muted-foreground)' }}>
+            <div className="text-5xl mb-3">🔍</div>
+            <p className="font-semibold">Nessuna storia per questi filtri.</p>
+            <p className="text-sm mt-1">Prova a cambiare categoria o fascia d'età.</p>
           </div>
         ) : (
           <motion.div
