@@ -28,28 +28,43 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function loadData() {
+      // Controlla cache sessionStorage (evita round-trip al server)
+      try {
+        const cached = sessionStorage.getItem('fiabe_family_v1')
+        if (cached) {
+          const { family: f, children: c, ts } = JSON.parse(cached)
+          if (Date.now() - ts < 5 * 60 * 1000) {
+            if (f) setFamily(f as Family)
+            if (c?.length > 0) {
+              setChildren(c as ChildProfile[])
+              setSelectedChild(c[0] as ChildProfile)
+              if (c[0]?.age) setAgeFilter(c[0].age)
+            }
+            setLoading(false)
+            return
+          }
+        }
+      } catch {}
+
       try {
         const res = await fetch('/api/family/ensure')
-        if (res.status === 401) {
-          router.push('/login')
-          return
-        }
+        if (res.status === 401) { router.push('/login'); return }
         if (res.ok) {
           const data = await res.json()
-          if (data.family) {
-            setFamily(data.family as Family)
-          }
-          if (data.children && data.children.length > 0) {
+          if (data.family) setFamily(data.family as Family)
+          if (data.children?.length > 0) {
             setChildren(data.children as ChildProfile[])
             setSelectedChild(data.children[0] as ChildProfile)
-            if (data.children[0]?.age) {
-              setAgeFilter(data.children[0].age)
-            }
+            if (data.children[0]?.age) setAgeFilter(data.children[0].age)
           }
+          // Salva in cache
+          try {
+            sessionStorage.setItem('fiabe_family_v1', JSON.stringify({
+              family: data.family, children: data.children ?? [], ts: Date.now()
+            }))
+          } catch {}
         }
-      } catch {
-        // Network error — still show the page
-      }
+      } catch {}
       setLoading(false)
     }
 

@@ -85,6 +85,7 @@ export default function ProfilePage() {
       setForm(emptyForm)
       setEditId(null)
       setShowForm(false)
+      try { sessionStorage.removeItem('fiabe_family_v1') } catch {}
     } catch {
       setSaveError('Errore di rete. Controlla la connessione e riprova.')
     }
