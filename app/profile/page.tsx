@@ -43,13 +43,14 @@ export default function ProfilePage() {
   const [form, setForm] = useState<ChildFormData>(emptyForm)
   const [editId, setEditId] = useState<string | null>(null)
   const [familyId, setFamilyId] = useState<string | null>(null)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const supabase = createClient()
 
   useEffect(() => {
     const load = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { router.push('/login'); return }
+      const { data: { user }, error: userErr } = await supabase.auth.getUser()
+      if (userErr || !user) { router.push('/login'); return }
 
       let { data: family } = await supabase
         .from('families')
@@ -59,11 +60,12 @@ export default function ProfilePage() {
 
       // Trigger may not have fired for existing users — create family as fallback
       if (!family) {
-        const { data: created } = await supabase
+        const { data: created, error: createErr } = await supabase
           .from('families')
           .upsert({ user_id: user.id }, { onConflict: 'user_id' })
           .select('id')
           .single()
+        if (createErr) console.error('Family create error:', createErr)
         family = created
       }
 
@@ -82,8 +84,27 @@ export default function ProfilePage() {
   }, [])
 
   const handleSave = async () => {
-    if (!form.name.trim() || !form.age || !familyId) return
+    if (!form.name.trim() || !form.age) return
+    setSaveError(null)
     setSaving(true)
+
+    let fid = familyId
+    if (!fid) {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setSaving(false); setSaveError('Non sei autenticato. Ricarica la pagina.'); return }
+      const { data: created, error: cErr } = await supabase
+        .from('families')
+        .upsert({ user_id: user.id }, { onConflict: 'user_id' })
+        .select('id')
+        .single()
+      if (cErr || !created) {
+        setSaving(false)
+        setSaveError('Impossibile creare il profilo famiglia. Riprova.')
+        return
+      }
+      fid = created.id
+      setFamilyId(fid)
+    }
 
     const payload = {
       name: form.name.trim(),
@@ -91,7 +112,7 @@ export default function ProfilePage() {
       gender: form.gender,
       favorite_themes: form.favorite_themes,
       avatar_emoji: form.avatar_emoji,
-      family_id: familyId,
+      family_id: fid,
     }
 
     if (editId) {
@@ -101,18 +122,16 @@ export default function ProfilePage() {
         .eq('id', editId)
         .select()
         .single()
-      if (!error && data) {
-        setProfiles((prev) => prev.map((p) => (p.id === editId ? data : p)))
-      }
+      if (error) { setSaveError('Errore modifica: ' + error.message); setSaving(false); return }
+      if (data) setProfiles((prev) => prev.map((p) => (p.id === editId ? data : p)))
     } else {
       const { data, error } = await supabase
         .from('child_profiles')
         .insert(payload)
         .select()
         .single()
-      if (!error && data) {
-        setProfiles((prev) => [...prev, data])
-      }
+      if (error) { setSaveError('Errore salvataggio: ' + error.message); setSaving(false); return }
+      if (data) setProfiles((prev) => [...prev, data])
     }
 
     setForm(emptyForm)
@@ -157,20 +176,20 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: 'var(--background)' }}>
+    <div className="min-h-screen" style={{ background: 'linear-gradient(180deg, #f3e8ff 0%, #fdf4ff 100%)' }}>
       <header
         className="border-b px-4 py-3 flex items-center gap-3"
-        style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)' }}
+        style={{ borderColor: '#e9d5ff', backgroundColor: 'rgba(253,244,255,0.95)' }}
       >
         <Link
           href="/dashboard"
-          className="inline-flex items-center gap-1 text-sm hover:underline"
-          style={{ color: 'var(--muted-foreground)' }}
+          className="inline-flex items-center gap-1 text-sm font-semibold hover:underline"
+          style={{ color: '#7c3aed' }}
         >
           <ArrowLeft size={14} /> Dashboard
         </Link>
-        <span style={{ color: 'var(--border)' }}>|</span>
-        <h1 className="font-bold" style={{ color: 'var(--foreground)' }}>I miei bambini</h1>
+        <span style={{ color: '#e9d5ff' }}>|</span>
+        <h1 className="font-bold" style={{ color: '#4c1d95' }}>I miei bambini 👶</h1>
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
@@ -356,10 +375,16 @@ export default function ProfilePage() {
               </div>
             </div>
 
+            {saveError && (
+              <div className="rounded-xl p-3 text-sm text-red-700" style={{ backgroundColor: '#fee2e2' }}>
+                {saveError}
+              </div>
+            )}
+
             <div className="flex gap-3 pt-2">
               <Button
                 variant="ghost"
-                onClick={() => { setShowForm(false); setEditId(null); setForm(emptyForm) }}
+                onClick={() => { setShowForm(false); setEditId(null); setForm(emptyForm); setSaveError(null) }}
                 className="flex-1"
               >
                 Annulla
@@ -368,6 +393,7 @@ export default function ProfilePage() {
                 onClick={handleSave}
                 disabled={saving || !form.name.trim() || !form.age}
                 className="flex-1"
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
               >
                 {saving ? (
                   <><Loader2 size={14} className="animate-spin" /> Salvataggio...</>

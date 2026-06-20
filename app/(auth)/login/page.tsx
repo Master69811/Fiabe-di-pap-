@@ -48,13 +48,13 @@ export default function LoginPage() {
 
   return (
     <div
-      className="rounded-2xl border p-8 shadow-lg"
-      style={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }}
+      className="rounded-3xl border p-8 shadow-xl"
+      style={{ backgroundColor: 'white', borderColor: '#e9d5ff' }}
     >
-      <h2 className="text-2xl font-bold mb-2 text-center" style={{ color: 'var(--foreground)' }}>
-        Bentornato!
+      <h2 className="text-2xl font-black mb-2 text-center" style={{ color: '#4c1d95' }}>
+        Bentornato! 👑
       </h2>
-      <p className="text-center mb-8 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+      <p className="text-center mb-8 text-sm font-medium" style={{ color: '#7c3aed' }}>
         Accedi per continuare le storie
       </p>
 
@@ -98,24 +98,26 @@ export default function LoginPage() {
           </div>
         )}
 
-        <Button type="submit" className="w-full" size="lg" disabled={loading}>
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={loading}
+          style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
+        >
           {loading ? (
             <>
               <Loader2 size={18} className="animate-spin" /> Accesso in corso...
             </>
           ) : (
-            'Accedi'
+            '✨ Accedi'
           )}
         </Button>
       </form>
 
-      <p className="text-center mt-6 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+      <p className="text-center mt-6 text-sm font-medium" style={{ color: '#7c3aed' }}>
         Non hai ancora un account?{' '}
-        <Link
-          href="/register"
-          className="font-semibold hover:underline"
-          style={{ color: 'var(--primary)' }}
-        >
+        <Link href="/register" className="font-black hover:underline" style={{ color: '#c026d3' }}>
           Registrati gratis
         </Link>
       </p>

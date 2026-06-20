@@ -57,13 +57,13 @@ export default function RegisterPage() {
 
   return (
     <div
-      className="rounded-2xl border p-8 shadow-lg"
-      style={{ backgroundColor: 'var(--card)', borderColor: 'var(--border)' }}
+      className="rounded-3xl border p-8 shadow-xl"
+      style={{ backgroundColor: 'white', borderColor: '#e9d5ff' }}
     >
-      <h2 className="text-2xl font-bold mb-2 text-center" style={{ color: 'var(--foreground)' }}>
-        Crea il tuo account
+      <h2 className="text-2xl font-black mb-2 text-center" style={{ color: '#4c1d95' }}>
+        Crea il tuo account 👸
       </h2>
-      <p className="text-center mb-8 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+      <p className="text-center mb-8 text-sm font-medium" style={{ color: '#7c3aed' }}>
         Inizia a raccontare storie magiche con la tua voce
       </p>
 
@@ -150,24 +150,26 @@ export default function RegisterPage() {
           </div>
         )}
 
-        <Button type="submit" className="w-full" size="lg" disabled={loading}>
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={loading}
+          style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
+        >
           {loading ? (
             <>
               <Loader2 size={18} className="animate-spin" /> Creazione account...
             </>
           ) : (
-            '🎙️ Crea account e configura la voce'
+            '✨ Crea account e configura la voce'
           )}
         </Button>
       </form>
 
-      <p className="text-center mt-6 text-sm" style={{ color: 'var(--muted-foreground)' }}>
+      <p className="text-center mt-6 text-sm font-medium" style={{ color: '#7c3aed' }}>
         Hai già un account?{' '}
-        <Link
-          href="/login"
-          className="font-semibold hover:underline"
-          style={{ color: 'var(--primary)' }}
-        >
+        <Link href="/login" className="font-black hover:underline" style={{ color: '#c026d3' }}>
           Accedi
         </Link>
       </p>

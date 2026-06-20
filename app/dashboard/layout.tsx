@@ -29,20 +29,27 @@ export default async function DashboardLayout({
   const avatarInitial = displayName.charAt(0).toUpperCase()
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--background)' }}>
+    <div className="min-h-screen flex flex-col" style={{ background: 'linear-gradient(180deg, #f3e8ff 0%, #fdf4ff 40%, #fff9ff 100%)' }}>
       {/* Top nav */}
       <header
         className="sticky top-0 z-50 border-b backdrop-blur-sm"
         style={{
-          backgroundColor: 'rgba(253,248,240,0.95)',
-          borderColor: 'var(--border)',
+          backgroundColor: 'rgba(253,244,255,0.95)',
+          borderColor: '#e9d5ff',
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/dashboard" className="flex items-center gap-2 flex-shrink-0">
-            <BookOpen size={24} style={{ color: 'var(--primary)' }} />
-            <span className="font-bold text-lg hidden sm:block" style={{ color: 'var(--foreground)' }}>
+            <BookOpen size={24} style={{ color: '#7c3aed' }} />
+            <span
+              className="font-black text-lg hidden sm:block"
+              style={{
+                background: 'linear-gradient(90deg, #7c3aed, #c026d3)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
               Fiabe di Papà
             </span>
           </Link>
@@ -51,24 +58,24 @@ export default async function DashboardLayout({
           <nav className="flex items-center gap-1">
             <Link
               href="/dashboard"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors hover:bg-[#f5ede0]"
-              style={{ color: 'var(--foreground)' }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors hover:bg-purple-50"
+              style={{ color: '#6d28d9' }}
             >
               <Home size={16} />
               <span className="hidden sm:inline">Home</span>
             </Link>
             <Link
               href="/voice-setup"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors hover:bg-[#f5ede0]"
-              style={{ color: 'var(--foreground)' }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors hover:bg-purple-50"
+              style={{ color: '#6d28d9' }}
             >
               <Mic size={16} />
               <span className="hidden sm:inline">Voce</span>
             </Link>
             <Link
               href="/profile"
-              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium transition-colors hover:bg-[#f5ede0]"
-              style={{ color: 'var(--foreground)' }}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-semibold transition-colors hover:bg-purple-50"
+              style={{ color: '#6d28d9' }}
             >
               <User size={16} />
               <span className="hidden sm:inline">Profilo</span>
@@ -80,13 +87,13 @@ export default async function DashboardLayout({
             <div className="flex items-center gap-2">
               <div
                 className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0"
-                style={{ backgroundColor: 'var(--primary)' }}
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)' }}
               >
                 {avatarInitial}
               </div>
               <span
-                className="text-sm font-medium hidden md:block max-w-[120px] truncate"
-                style={{ color: 'var(--foreground)' }}
+                className="text-sm font-semibold hidden md:block max-w-[120px] truncate"
+                style={{ color: '#6d28d9' }}
               >
                 {displayName}
               </span>

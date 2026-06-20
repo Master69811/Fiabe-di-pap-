@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-import { validateVoiceId } from '@/lib/elevenlabs'
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
@@ -21,25 +20,27 @@ export async function POST(request: NextRequest) {
   }
 
   const { voiceId } = body
-  if (!voiceId) {
+  if (!voiceId || voiceId.trim().length < 10) {
     return NextResponse.json({ error: 'voiceId obbligatorio' }, { status: 400 })
   }
 
-  const isValid = await validateVoiceId(voiceId)
-  if (!isValid) {
-    return NextResponse.json(
-      { error: 'Voice ID non valido. Verifica di averlo copiato correttamente da ElevenLabs.' },
-      { status: 400 }
-    )
+  // Upsert: crea la famiglia se non esiste, poi aggiorna il voice ID
+  const { error: upsertErr } = await supabase
+    .from('families')
+    .upsert({ user_id: user.id }, { onConflict: 'user_id' })
+
+  if (upsertErr) {
+    console.error('Upsert family error:', upsertErr)
   }
 
   const { error } = await supabase
     .from('families')
-    .update({ elevenlabs_voice_id: voiceId, has_voice_setup: true })
+    .update({ elevenlabs_voice_id: voiceId.trim(), has_voice_setup: true })
     .eq('user_id', user.id)
 
   if (error) {
-    return NextResponse.json({ error: 'Errore nel salvataggio' }, { status: 500 })
+    console.error('Voice save error:', error)
+    return NextResponse.json({ error: 'Errore nel salvataggio: ' + error.message }, { status: 500 })
   }
 
   return NextResponse.json({ success: true })

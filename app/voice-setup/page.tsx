@@ -42,22 +42,22 @@ export default function VoiceSetupPage() {
   return (
     <div
       className="min-h-screen flex flex-col"
-      style={{ backgroundColor: 'var(--background)' }}
+      style={{ background: 'linear-gradient(180deg, #f3e8ff 0%, #fdf4ff 100%)' }}
     >
       {/* Header */}
       <header
         className="border-b px-4 py-3 flex items-center gap-3"
-        style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)' }}
+        style={{ borderColor: '#e9d5ff', backgroundColor: 'rgba(253,244,255,0.95)' }}
       >
         <Link
           href="/dashboard"
-          className="flex items-center gap-1 text-sm hover:underline"
-          style={{ color: 'var(--muted-foreground)' }}
+          className="flex items-center gap-1 text-sm font-semibold hover:underline"
+          style={{ color: '#7c3aed' }}
         >
           <ArrowLeft size={16} /> Torna alla dashboard
         </Link>
-        <span style={{ color: 'var(--border)' }}>|</span>
-        <span className="text-sm font-medium" style={{ color: 'var(--foreground)' }}>
+        <span style={{ color: '#e9d5ff' }}>|</span>
+        <span className="text-sm font-semibold" style={{ color: '#4c1d95' }}>
           🎙️ Configura la tua voce
         </span>
       </header>
