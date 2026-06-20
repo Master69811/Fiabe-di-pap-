@@ -40,6 +40,7 @@ export type Story = {
   cover_color: string             // gradiente di sfondo della copertina
   tags: string[]
   relaxation_level: 1 | 2 | 3 | 4 | 5  // 1=movimentato 5=rilassantissimo
+  music_url?: string              // musica specifica per questa storia (opzionale)
   created_at: string
 }
 

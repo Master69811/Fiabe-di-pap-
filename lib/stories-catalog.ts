@@ -1262,6 +1262,479 @@ Da quel giorno, nel paese, tutti conoscevano Sofia. Non come "la bambina del noc
     tags: ['coraggio', 'eroi', 'natura', 'ambiente', 'bambini', 'differenza'],
     created_at: '2024-01-01T00:00:00Z',
   },
+  // ── FIABE CLASSICHE ─────────────────────────────────────────────────────────
+
+  {
+    id: 'i-tre-porcellini',
+    cover_color: 'linear-gradient(135deg, #F97316, #FBBF24)',
+    relaxation_level: 3,
+    title: 'I Tre Porcellini',
+    description:
+      'Gino, Pino e Fino costruiscono tre case diversissime. Quando arriva il Lupo, solo la casa più solida resisterà! La fiaba classica sul valore della pazienza e del lavoro ben fatto.',
+    content: `C'erano una volta tre porcellini fratelli: Gino, Pino e Fino.
+
+Un giorno la loro mamma disse: "Siete grandi, è ora di costruire la vostra casa e cavarvela da soli. Ma attenti al Lupo Cattivo che vive nel bosco!"
+
+Gino era il più pigro. "Costruirò la mia casetta di paglia!" disse. "È velocissima, così ho più tempo per giocare!" E in un'ora la sua casetta di paglia era pronta. Gino ballò e saltellò per tutto il giorno.
+
+Pino era un po' meno pigro. "Io costruirò la mia casetta di legno," disse. "Un po' più solida." Lavorò tutto il pomeriggio e la sua casetta fu pronta. Anche lui andò a giocare contento.
+
+Fino era il più laborioso. "Io costruirò la mia casetta di mattoni," disse con serietà.
+
+I fratelli risero: "Ci vorranno settimane! Sei matto?"
+
+"Ci vorrà il tempo che serve," rispose Fino tranquillo, e cominciò a lavorare.
+
+Giorno dopo giorno, mattone su mattone, la casetta di Fino prendeva forma. Era bella, solida, con una porta robusta e un camino caldo.
+
+Un giorno d'autunno arrivò il Lupo Grande, con gli occhi gialli e i denti affilati.
+
+Si avvicinò alla casetta di paglia di Gino e bussò con le nocche.
+
+"Porcellino! Lasciami entrare!"
+
+"No, no, non ti aprirò mai!" gridò Gino tremando.
+
+"Allora soffio e ti spazzio via!" ruggì il Lupo.
+
+Gonfiò le guance enormi e soffiò: FUUUU! La casetta di paglia volò via come un mazzo di carte. Gino scappò di corsa dai fratelli.
+
+Si rifugiò da Pino. Ma il Lupo li seguì.
+
+"Porcellini! Aprite subito!"
+
+"No, no, non ti apriremo!" gridarono i due.
+
+Il Lupo soffiò ancora più forte. La casetta di legno scricchiolò, si piegò e crollò. I due fratelli scapparono a gambe levate.
+
+Arrivarono trafelati alla casa di Fino.
+
+"Fratello! Il Lupo! Aiuto!"
+
+Fino li accolse e chiuse bene la porta di mattoni.
+
+Arrivò il Lupo, furiosissimo.
+
+"Porcellini! Aprite immediatamente!"
+
+"No, no e poi no!" risposero i tre.
+
+Il Lupo soffiò con tutta la sua forza. Una volta. Due volte. Tre volte. Le guance divennero rosse come pomodori, gli occhi strabuzzati. Ma i mattoni non si mossero nemmeno di un millimetro.
+
+Allora il Lupo ebbe un'idea: avrebbe usato il camino!
+
+Salì sul tetto e si calò giù dalla canna fumaria. Ma Fino aveva acceso il fuoco nel camino, con un bel pentolone d'acqua bollente sopra!
+
+Il Lupo scese, sentì il calore terribile, urlò "AIIIH!" e risalì di corsa. Saltò giù dal tetto e scappò nel bosco, e non si fece più vedere mai più in tutta la vita.
+
+I tre porcellini ballarono di gioia, abbracciandosi.
+
+"Avevi ragione tu, Fino," disse Gino vergognoso. "Mi dispiace averti preso in giro."
+
+"E io mi dispiace per la casetta di legno," disse Pino.
+
+Fino sorrise. "L'importante è che siate al sicuro. Adesso abitiamo tutti qui insieme."
+
+E così i tre fratelli vissero felici nella bella casetta di mattoni. Gino e Pino impararono che le cose fatte con cura e pazienza durano per sempre. E il Lupo? Non tornò mai più.`,
+    category: 'adventure',
+    age_min: 3,
+    age_max: 7,
+    duration_minutes: 6,
+    language_level: 'simple',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: 'Le cose fatte con cura e pazienza durano nel tempo. Non rimandare a domani quello che puoi fare bene oggi.',
+    cover_emoji: '🐷',
+    tags: ['fiaba classica', 'porcellini', 'lupo', 'lavoro', 'pazienza', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'i-sette-capretti',
+    cover_color: 'linear-gradient(135deg, #86EFAC, #22C55E)',
+    relaxation_level: 3,
+    title: 'I Sette Capretti',
+    description:
+      'Mamma Capra lascia soli i suoi sette piccoli capretti con una raccomandazione importante: non aprire a nessuno. Ma il Lupo Cattivo è molto astuto... La fiaba classica sull\'importanza di ascoltare i consigli dei genitori.',
+    content: `Mamma Capra aveva sette capretti piccoli piccoli, ognuno con un nome: Bianchetto, Brunetto, Maculetto, Grigiotto, Neretto, Piediveloci e il più piccolo di tutti, il tenero Tremolino.
+
+Un mattino, Mamma Capra li radunò tutti e sette e disse seria: "Bambini miei, devo uscire a fare la spesa nel bosco. Voi rimanete a casa, chiudete bene la porta e non aprite a nessuno. Nel bosco c'è il Lupo Cattivo, e lui vi vuole mangiare. Lo riconoscete perché ha la voce roca e le zampe nere come il carbone."
+
+"Sì, mamma!" dissero i sette capretti in coro.
+
+La mamma uscì. Subito i capretti chiusero la porta a chiave.
+
+Non erano passati nemmeno dieci minuti quando bussarono alla porta.
+
+TOC TOC TOC.
+
+"Bambini miei! Sono la vostra mamma! Aprite, ho portato qualcosa di buono!"
+
+I capretti si avvicinarono alla porta. Piediveloci appoggiò l'orecchio al legno.
+
+"La voce è troppo roca e grossa! La mamma ha una voce dolce! Non siete la nostra mamma!"
+
+Era il Lupo! Se ne andò borbottando. Ma non si arrese.
+
+Andò dal droghiere del paese e comprò un barattolo di miele. Ne mangiò tanto, e la voce gli diventò più dolce e morbida. Tornò alla porta.
+
+"Bambini miei! Sono la vostra mamma! Aprite!"
+
+I capretti si guardarono incerti. La voce sembrava più dolce...
+
+Ma Bianchetto disse: "Aspettate! Mamma ha sempre le zampe bianche. Mostrateci le zampe dal buco della serratura!"
+
+Il Lupo allungò una zampa. Era nera come la notte.
+
+"Le zampe sono nere! Il Lupo! Il Lupo!" gridarono i capretti.
+
+Il Lupo se ne andò di nuovo, furioso. Ma era ancora più furioso dentro. Si fermò dal mugnaio.
+
+"Inbiancami le zampe con della farina!" ordinò.
+
+"Non lo farò mai, aiuterei il Lupo a fare del male!"
+
+Il Lupo ringhiò, e il mugnaio impaurito obbedì. Le zampe del Lupo diventarono bianche come la neve.
+
+Il Lupo tornò per la terza volta.
+
+"Bambini miei! Sono la vostra mamma!" disse con voce dolce.
+
+E questa volta allungò subito le zampe bianche dal buco della serratura.
+
+I capretti videro le zampe bianche, sentirono la voce dolce... e aprirono la porta.
+
+Il Lupo enorme entrò urlando. I capretti scapparono in tutte le direzioni!
+
+Bianchetto si nascose sotto il letto. Brunetto dietro le tende. Maculetto nell'armadio. Grigiotto nella credenza. Neretto nella stufa spenta. Piediveloci dentro al cesto del bucato.
+
+E il piccolo Tremolino, il più piccolo di tutti, si nascose nell'orologio a pendolo.
+
+Il Lupo li trovò tutti, uno per uno. Tutti tranne il piccolo Tremolino, ben nascosto nel ticchettio dell'orologio.
+
+Quando Mamma Capra tornò a casa e trovò la porta spalancata e la casa in disordine, gridò: "I miei bambini! Dove sono i miei bambini?"
+
+Poi sentì un TICK TOCK e una vocina sottile sottile: "Mamma! Sono qui! Nell'orologio!"
+
+Tremolino saltò fuori e raccontò tutto tra le lacrime.
+
+Mamma Capra strinse i denti. Seguì le orme enormi del Lupo nel prato. Lì trovò il Lupo che dormiva sotto una quercia, con la pancia enorme e gonfia.
+
+Ma... dall'interno della pancia veniva un suono: PLUM PLUM PLUM! Erano i capretti che saltavano!
+
+Mamma Capra prese le forbici e, con mano delicata, tagliò piano la pancia del Lupo dormiente. Uno per uno i capretti saltarono fuori, tutti salvi e interi!
+
+"Mamma! Mamma!" gridarono abbracciandola.
+
+Poi Mamma Capra riempì la pancia del Lupo con grossi sassi pesanti e la ricucì con ago e filo.
+
+Quando il Lupo si svegliò aveva una sete tremenda. Si trascinò fino al ruscello per bere. Ma i sassi nella pancia pesavano così tanto che inciampò, cadde nell'acqua e sparì per sempre nella corrente.
+
+Mamma Capra abbracciò tutti e sette i suoi capretti.
+
+"Bambini miei," disse piano, "avete aperto la porta perché la voce sembrava dolce e le zampe sembravano bianche. Ma le apparenze ingannano. Chi vi vuole davvero bene non ha bisogno di trucchi per entrare nel vostro cuore."
+
+E i sette capretti, da quel giorno, non aprirono mai più la porta senza essere assolutamente certi di chi ci fosse dall'altra parte.`,
+    category: 'animals',
+    age_min: 3,
+    age_max: 7,
+    duration_minutes: 7,
+    language_level: 'simple',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: "Le apparenze ingannano. Bisogna ascoltare i consigli dei genitori e non fidarsi degli sconosciuti.",
+    cover_emoji: '🐐',
+    tags: ['fiaba classica', 'capretti', 'lupo', 'tradizionale', 'mamma', 'sicurezza'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'cappuccetto-rosso',
+    cover_color: 'linear-gradient(135deg, #EF4444, #DC2626)',
+    relaxation_level: 3,
+    title: 'Cappuccetto Rosso',
+    description:
+      'Una bambina con un mantellino rosso porta dolci alla nonna malata. Ma nel bosco la aspetta il Lupo Grigio con i suoi piani cattivi. La fiaba più famosa di sempre sull\'importanza di seguire i consigli di chi ci vuole bene.',
+    content: `C'era una volta una bambina di nome Elisa, ma tutti la chiamavano Cappuccetto Rosso perché portava sempre un mantellino rosso con il cappuccio, un regalo della sua nonna.
+
+Un giorno la mamma la chiamò in cucina: "Cappuccetto, la nonna non sta bene. Portale questo cestino: c'è una torta, del pane fresco e un barattolo di marmellata di fragole. Ma ricorda: rimani sul sentiero del bosco e non fermarti a parlare con gli estranei!"
+
+"Sì mamma, promesso!" disse Cappuccetto, e partì con il cestino al braccio.
+
+Nel bosco, l'aria profumava di pino e di terra umida. Gli uccellini cantavano. Era bellissimo!
+
+Ma dietro un grande albero si nascondeva il Lupo Grigio. Aveva sentito che Cappuccetto andava dalla nonna, e nella sua mente cattiva aveva già un piano.
+
+Si avvicinò con la sua faccia più gentile.
+
+"Buongiorno, bambina! Che bella giornata, vero? E quanti bei fiori ci sono oggi! La nonna non ama i fiori?"
+
+Cappuccetto si fermò. La mamma aveva detto di non parlare con gli estranei... ma il Lupo sembrava così simpatico! "Sì, la nonna ama i fiori. Abita nella casetta oltre il bosco."
+
+"Ah che bello! Perché non le raccogli qualche fiore lungo la strada?" disse il Lupo sorridendo.
+
+E mentre Cappuccetto si allontanava dal sentiero a raccogliere fiori, il Lupo sparì di corsa verso la casa della nonna.
+
+Bussò alla porta: TOC TOC.
+
+"Chi è?" chiese la voce della nonna.
+
+"Sono Cappuccetto Rosso! Ho la torta della mamma!" disse il Lupo imitando la voce della bambina.
+
+"Entra pure, cara, la porta è aperta!"
+
+Il Lupo entrò. La nonna, quando lo vide, fece per urlare, ma il Lupo fu più veloce: la portò gentilmente nella stanza accanto e la fece nascondere nell'armadio. Poi si mise nel letto con la cuffietta e il lenzuolo tirato su fino al naso.
+
+Poco dopo arrivò Cappuccetto col suo mazzo di fiori.
+
+"Nonna, sono qui! Ti ho portato la torta!" Entrò nella stanza e si avvicinò al letto.
+
+"Nonna, che occhi grandi che hai!"
+
+"Per vederti meglio, mia cara!" rispose una voce strana.
+
+"Nonna, che orecchie grandi hai!"
+
+"Per sentirti meglio!"
+
+"Nonna, che bocca grande hai!"
+
+"Per MANGIARTI MEGLIO!" urlò il Lupo balzando dal letto.
+
+Cappuccetto urlò con tutto il fiato che aveva!
+
+Per fortuna, un cacciatore di nome Marco stava passando vicino alla casetta e sentì le urla. Aprì la porta di un calcio, il Lupo spaventato saltò dalla finestra e scappò nel bosco più fitto, e non tornò mai più.
+
+Il cacciatore aprì l'armadio e trovò la nonna, un po' scossa ma sana e salva. Cappuccetto la abbracciò forte, con le lacrime agli occhi.
+
+"Ti voglio tanto bene, nonna."
+
+"Anch'io, cucciola mia."
+
+Quella sera, mangiando la torta della mamma tutti e tre insieme, la nonna guardò Cappuccetto seria ma amorevole.
+
+"Hai capito perché la mamma ti aveva detto di stare sul sentiero?"
+
+"Sì," disse Cappuccetto piano. "Perché gli estranei non sono tutti cattivi... ma non si sa mai chi lo è. E la strada sicura è quella che mi ha indicato la mamma."
+
+"Esatto," disse la nonna abbracciandola. "Chi ti vuole bene ti dà regole per proteggerti, non per farti del male."
+
+E da quel giorno, Cappuccetto Rosso rimase sempre sul sentiero. E vissero tutti felici e sicuri.`,
+    category: 'heroes',
+    age_min: 4,
+    age_max: 8,
+    duration_minutes: 7,
+    language_level: 'simple',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: "Le regole dei genitori esistono per proteggerci. Non bisogna parlare con gli estranei né deviare dal sentiero sicuro.",
+    cover_emoji: '🍎',
+    tags: ['fiaba classica', 'cappuccetto rosso', 'lupo', 'nonna', 'sicurezza', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'cenerentola',
+    cover_color: 'linear-gradient(135deg, #818CF8, #C084FC)',
+    relaxation_level: 4,
+    title: 'Cenerentola',
+    description:
+      'Una ragazza dal cuore buono vive con una matrigna cattiva e due sorellastre invidiose. Ma una notte magica e una Fata Madrina cambieranno tutto. La fiaba più amata di sempre sulla bontà che vince sempre.',
+    content: `C'era una volta una ragazza di nome Ella. Aveva capelli color oro, occhi profondi e un cuore buono come il pane. Ma da quando suo padre si era risposato, la sua vita era diventata difficile.
+
+La matrigna e le sue due figlie, Greta e Vanda, la facevano lavorare dalla mattina alla sera. Ella lavava, cuciva, cucinava, puliva. Dormiva in una stanzina vicino al camino, e spesso finiva coperta di cenere. Per questo la chiamavano Cenerentola.
+
+Ma Cenerentola non si lamentava mai. Cantava mentre lavorava e trovava felicità nelle piccole cose: una rondine sul davanzale, i fiori nel giardino, la luna che guardava dalla finestra.
+
+Un giorno arrivò una notizia grande: il Re dava un grande ballo nel castello! Il Principe voleva trovare la sua sposa, e tutte le ragazze del regno erano invitate.
+
+Greta e Vanda balzarono su urlando di gioia. Per una settimana non si parlò d'altro: vestiti, acconciature, scarpe. Cenerentola le aiutò a prepararsi senza dire una parola.
+
+La sera del ballo, la matrigna disse con una voce gelida: "Tu rimani qui. Hai troppo lavoro da fare. E poi non sei degna del castello."
+
+La porta si chiuse. Cenerentola rimase sola.
+
+Si sedette accanto al camino, e per la prima volta da tanto tempo, pianse.
+
+Ma ecco che nella stanza comparve una luce dorata, e da quella luce uscì una donna anziana con un sorriso caldo e una bacchetta stellata.
+
+"Non piangere, Cenerentola. Sono la tua Fata Madrina, e stanotte andrai al ballo."
+
+"Ma... non ho un vestito, né una carrozza, né—"
+
+"Lascia fare a me."
+
+Con un tocco di bacchetta, la zucca dell'orto diventò una splendida carrozza dorata. I topolini del fienile diventarono sei cavalli bianchi. E il vestito di Cenerentola... diventò un abito di seta azzurra che sembrava fatto di stelle, con scarpe di cristallo trasparente che brillavano come diamanti.
+
+Cenerentola era così bella che non riuscì nemmeno a riconoscersi nello specchio.
+
+"Vai," disse la Fata. "Ma ricorda: allo scoccare della mezzanotte, la magia finirà. Devi tornare prima delle dodici!"
+
+"Lo prometto!" disse Cenerentola, e salì in carrozza.
+
+Al castello, tutti si fermarono a guardarla. Chi era quella misteriosa ragazza bella come la luna? Le sorellastre non la riconobbero. La matrigna nemmeno.
+
+Il Principe la notò subito. Si avvicinò, le porse la mano, e ballarono insieme tutta la sera. Il Principe non aveva occhi che per lei. Le parlò, la fece ridere, la ascoltò.
+
+Cenerentola era così felice che dimenticò tutto... anche l'ora!
+
+DONG! L'orologio del castello cominciò a battere la mezzanotte.
+
+DONG! DONG!
+
+"No!" Cenerentola si scostò dal Principe e corse via.
+
+DONG! DONG! DONG!
+
+Scendendo le scale veloci come il vento, perse una scarpetta di cristallo. Non aveva tempo per raccoglierla!
+
+DONG! DONG! DONG!
+
+Arrivò fuori dal castello al dodicesimo rintocco. La carrozza era di nuovo una zucca, i cavalli topolini, il vestito il vecchio abito grigio. Cenerentola tornò a casa a piedi, col cuore ancora pieno di musica.
+
+Il giorno dopo, il Principe tenne alta la scarpetta di cristallo davanti alla folla.
+
+"Sposerò la ragazza il cui piede si adatta perfettamente a questa scarpetta."
+
+I soldati girarono tutto il regno. Ogni ragazza ci provò. La scarpetta era troppo piccola per tutte.
+
+Arrivarono alla casa di Cenerentola. Greta ci provò: troppo stretta. Vanda ci provò: troppo stretta.
+
+"C'è un'altra ragazza in questa casa?" chiese il soldato.
+
+"No," disse la matrigna. Ma in quel momento Cenerentola scese le scale.
+
+Provò la scarpetta. Scivolò nel piede perfettamente, come se fosse stata fatta su misura. Perché lo era.
+
+Il Principe la guardò negli occhi e la riconobbe subito: erano gli stessi occhi profondi della ragazza che aveva fatto battere il suo cuore.
+
+"Sei tu," disse semplicemente.
+
+Cenerentola divenne principessa. E fu una principessa buona e giusta, che non dimenticò mai da dove veniva. Perdonò la matrigna e le sorellastre, e fu gentile con tutti, perché sapeva che la bontà non si stanca mai.
+
+E vissero felici, con i cuori pieni di gratitudine e amore.`,
+    category: 'magic',
+    age_min: 4,
+    age_max: 9,
+    duration_minutes: 8,
+    language_level: 'medium',
+    mood: 'magical',
+    is_ai_generated: false,
+    moral: 'La bontà e la gentilezza, anche nelle situazioni più difficili, vengono sempre riconosciute e premiate.',
+    cover_emoji: '👠',
+    tags: ['fiaba classica', 'cenerentola', 'fata madrina', 'principe', 'magia', 'bontà', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+  {
+    id: 'hansel-e-gretel',
+    cover_color: 'linear-gradient(135deg, #78350F, #A16207)',
+    relaxation_level: 2,
+    title: 'Hansel e Gretel',
+    description:
+      'Due fratellini si perdono nel bosco e trovano una casetta fatta di cioccolato e torrone. Ma dentro vive una strega cattiva... La fiaba classica sul coraggio e l\'intelligenza che vincono sulla cattiveria.',
+    content: `Al bordo di un grande bosco vivevano due fratellini, Hansel e Gretel, con il loro papà boscaiolo e la matrigna.
+
+La famiglia era molto povera. C'erano sere in cui non c'era abbastanza cibo per tutti.
+
+Una notte Hansel sentì la matrigna dire al papà: "Domani portiamo i bambini nel bosco e li lasciamo lì. Non abbiamo cibo per tutti e quattro."
+
+Il papà scosse la testa tra le lacrime, ma la matrigna non cedette.
+
+Hansel aspettò che tutti dormissero, poi uscì piano in giardino. Raccolse tante pietruzze bianche e le mise in tasca.
+
+Il mattino dopo, mentre li portavano nel bosco, Hansel camminava lento e di tanto in tanto lasciava cadere una pietruzza sul sentiero.
+
+Arrivati nel cuore del bosco, la matrigna disse: "Aspettate qui, torniamo a prendervi."
+
+Non tornarono mai.
+
+Scese il buio. Gretel pianse. Ma Hansel le prese la mano.
+
+"Non piangere. Ho lasciato le pietruzze bianche per terra. Quando sorge la luna, brilleranno e ci mostreranno la strada."
+
+E così fu: al chiaro di luna, le pietruzze bianche brillavano come stelle cadute sul sentiero. I due fratellini le seguirono una per una e arrivarono a casa prima dell'alba.
+
+Il papà li abbracciò con gioia e sollievo. Ma la matrigna non era contenta.
+
+Qualche giorno dopo, ricominciò. E questa volta chiuse a chiave la porta di notte.
+
+Hansel non poté raccogliere pietruzze. Aveva solo un tozzo di pane. Quella mattina, mentre li conducevano nel bosco ancora più lontano, Hansel sgranò il pane e lasciò briciole sul sentiero.
+
+Ma quando scese la notte e cercarono le briciole... erano sparite. Gli uccellini le avevano mangiate tutte.
+
+I fratellini erano persi.
+
+Camminarono per un giorno e una notte, affamati e stanchi. Poi, all'improvviso, tra gli alberi videro qualcosa di incredibile.
+
+Una casetta. Ma non una casetta qualsiasi: le pareti erano di cioccolato fondente, il tetto di torrone bianco, le finestre di zucchero trasparente e le porte di biscotto dorato!
+
+"Non è possibile..." sussurrò Gretel.
+
+"È reale!" disse Hansel, e mordicchiò un angolo del muro.
+
+Mangiavano e mangiavano affamati, quando si aprì la porta.
+
+Uscì una vecchina con gli occhi quasi ciechi e un sorriso dolcissimo.
+
+"Poveri bambini! Entrate, entrate! Ho da mangiare per tutti!"
+
+Li fece sedere a una tavola piena di ogni bontà: minestra calda, pane fresco, torta al miele. I bambini mangiarono finché non poterono più.
+
+Poi la vecchina li portò a due lettini morbidi e profumati.
+
+"Dormite pure, tesori miei."
+
+Ma la vecchina era una strega! I suoi occhi deboli non vedevano bene, ma il suo naso annusava la carne fresca dei bambini.
+
+L'indomani mattina, afferrò Hansel e lo rinchiuse in una gabbia di ferro.
+
+"Devi ingrassare!" gli disse. E ogni giorno portava cibo abbondante ad Hansel, mentre Gretel doveva lavorare come una schiava a cucinare e pulire.
+
+La strega aveva gli occhi quasi ciechi. Ogni giorno chiedeva ad Hansel di allungare il dito dal foro della gabbia per sentire quanto fosse grasso.
+
+Ma Hansel era furbo: allungava sempre un osso di pollo che aveva trovato. La strega toccava l'osso e brontolava: "Ancora troppo magro!"
+
+Passarono le settimane. Un giorno la strega perse la pazienza.
+
+"Magro o grasso, ti mangio oggi! Gretel, accendi il forno!"
+
+Gretel obbedì tremando. Il forno si scaldò.
+
+"Ora chinati a guardare se è abbastanza caldo!" ordinò la strega.
+
+Ma Gretel aveva capito il piano. Scosse la testa.
+
+"Non so come si fa. Mi mostri lei?"
+
+La strega borbottò e si avvicinò allo sportello del forno. Si chinò per guardare dentro.
+
+In quell'istante, Gretel raccolse tutte le sue forze e la spinse dentro, sbattendo lo sportello.
+
+Poi corse a liberare Hansel, aprendo il lucchetto della gabbia con la chiave che pendeva dalla cintura della strega.
+
+"Gretel! Sei libera!" urlò Hansel uscendo di corsa.
+
+I due fratellini perquisirono la casetta. In un cassetto trovarono perle preziose e monete d'oro della strega. Ne riempirono le tasche.
+
+Nel bosco, giunsero a un grande lago. Sull'altra riva c'era la strada di casa. Un'anatra bianca li aiutò ad attraversare, uno alla volta, sulle sue larghe spalle.
+
+Dall'altra parte del lago, riconobbero il sentiero. Corsero.
+
+Il papà aprì la porta e li abbracciò piangendo. La matrigna se ne era andata via.
+
+Con l'oro della strega, la famiglia non ebbe mai più problemi. E Hansel e Gretel, insieme al papà, vissero felici per tutto il resto della loro vita.
+
+Avevano imparato che nei momenti più difficili, il coraggio e l'intelligenza, usati insieme, possono vincere su qualsiasi paura.`,
+    category: 'adventure',
+    age_min: 5,
+    age_max: 9,
+    duration_minutes: 9,
+    language_level: 'medium',
+    mood: 'exciting',
+    is_ai_generated: false,
+    moral: 'Il coraggio e l\'intelligenza, usati insieme, possono superare anche le situazioni più difficili.',
+    cover_emoji: '🏠',
+    tags: ['fiaba classica', 'hansel', 'gretel', 'strega', 'bosco', 'coraggio', 'fratelli', 'tradizionale'],
+    created_at: '2024-01-01T00:00:00Z',
+  },
+
   {
     id: 'luca-e-il-gattino-nero',
     cover_color: 'linear-gradient(135deg, #F59E0B, #F97316)',

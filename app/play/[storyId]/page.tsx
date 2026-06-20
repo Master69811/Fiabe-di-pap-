@@ -148,7 +148,9 @@ export default function PlayPage({ params }: PageProps) {
 
   const durationOpt = OPTS.find((o) => o.key === duration)
   const categoryMeta = story ? CATEGORY_META[story.category] : null
-  const backgroundMusicUrl = story && musicEnabled ? CATEGORY_MUSIC[story.category] : undefined
+  const backgroundMusicUrl = story && musicEnabled
+    ? (story.music_url ?? CATEGORY_MUSIC[story.category])
+    : undefined
 
   if (loading) {
     return (

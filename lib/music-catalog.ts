@@ -1,37 +1,38 @@
 import type { StoryCategory } from '@/types'
 
-// Sottofondo musicale per categoria — tracce royalty-free / pubblico dominio
+// Musica di sottofondo per categoria — Kevin MacLeod (incompetech.com) — CC BY 4.0
+// Attribution: Music by Kevin MacLeod (incompetech.com), Licensed under Creative Commons: By Attribution 4.0
 // Per sostituire: carica i tuoi MP3 su Supabase Storage e aggiorna gli URL qui
 export const CATEGORY_MUSIC: Record<StoryCategory, string> = {
-  // 🧚 Magia — arpeggi leggeri, atmosfera da libro illustrato
+  // 🧚 Magia — arpeggi incantati e scintillanti
   magic:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Pixie%20Dust.mp3',
 
-  // 🌙 Buonanotte — calmo, ipnotico, per addormentarsi
+  // 🌙 Buonanotte — atmosfera soffice e onirica
   sleep:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Peaceful%20Desolation.mp3',
 
-  // 🐻 Animali — giocoso, curioso
+  // 🐻 Animali — melodia giocosa e buffa
   animals:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Monkeys%20Spinning%20Monkeys.mp3',
 
-  // 🚀 Avventura — ritmico, dinamico
+  // 🚀 Avventura — tema epico e ritmico
   adventure:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Hall%20of%20the%20Mountain%20King.mp3',
 
-  // ❤️ Emozioni — morbido, coinvolgente
+  // ❤️ Emozioni — melodia morbida e toccante
   emotions:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Touching%20Moment.mp3',
 
-  // 🌱 Educativo — leggero, vivace
+  // 🌱 Educativo — tema curioso e leggero
   educational:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Quirky%20Dog.mp3',
 
-  // 🦸 Eroi — epico ma delicato
+  // 🦸 Piccoli eroi — tema eroico e coraggioso
   heroes:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Rynos%20Theme.mp3',
 
-  // 👨‍👩‍👧 Famiglia — caldo, avvolgente
+  // 👨‍👩‍👧 Famiglia — melodia calda e avvolgente
   family:
-    'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    'https://incompetech.com/music/royalty-free/mp3-royaltyfree/Wholesome.mp3',
 }
