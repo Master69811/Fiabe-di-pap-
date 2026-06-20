@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient()
@@ -24,16 +25,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'voiceId obbligatorio' }, { status: 400 })
   }
 
-  // Upsert: crea la famiglia se non esiste, poi aggiorna il voice ID
-  const { error: upsertErr } = await supabase
-    .from('families')
-    .upsert({ user_id: user.id }, { onConflict: 'user_id' })
+  const admin = createAdminClient()
 
-  if (upsertErr) {
-    console.error('Upsert family error:', upsertErr)
+  // Ensure family exists using admin client (bypasses RLS)
+  const { data: existing } = await admin
+    .from('families')
+    .select('id')
+    .eq('user_id', user.id)
+    .maybeSingle()
+
+  if (!existing) {
+    await admin.from('families').insert({ user_id: user.id })
   }
 
-  const { error } = await supabase
+  const { error } = await admin
     .from('families')
     .update({ elevenlabs_voice_id: voiceId.trim(), has_voice_setup: true })
     .eq('user_id', user.id)

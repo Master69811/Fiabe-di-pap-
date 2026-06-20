@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { ArrowLeft, Plus, Trash2, Save, Loader2 } from 'lucide-react'
@@ -42,101 +41,53 @@ export default function ProfilePage() {
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState<ChildFormData>(emptyForm)
   const [editId, setEditId] = useState<string | null>(null)
-  const [familyId, setFamilyId] = useState<string | null>(null)
   const [saveError, setSaveError] = useState<string | null>(null)
 
-  const supabase = createClient()
-
   useEffect(() => {
-    const load = async () => {
-      const { data: { user }, error: userErr } = await supabase.auth.getUser()
-      if (userErr || !user) { router.push('/login'); return }
-
-      let { data: family } = await supabase
-        .from('families')
-        .select('id')
-        .eq('user_id', user.id)
-        .single()
-
-      // Trigger may not have fired for existing users — create family as fallback
-      if (!family) {
-        const { data: created, error: createErr } = await supabase
-          .from('families')
-          .upsert({ user_id: user.id }, { onConflict: 'user_id' })
-          .select('id')
-          .single()
-        if (createErr) console.error('Family create error:', createErr)
-        family = created
-      }
-
-      if (family) {
-        setFamilyId(family.id)
-        const { data: kids } = await supabase
-          .from('child_profiles')
-          .select('*')
-          .eq('family_id', family.id)
-          .order('created_at')
-        setProfiles(kids || [])
-      }
-      setLoading(false)
-    }
-    load()
-  }, [])
+    fetch('/api/profile/children')
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.error === 'Non autorizzato') {
+          router.push('/login')
+          return
+        }
+        setProfiles(data.children ?? [])
+        setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [router])
 
   const handleSave = async () => {
     if (!form.name.trim() || !form.age) return
     setSaveError(null)
     setSaving(true)
 
-    let fid = familyId
-    if (!fid) {
-      const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setSaving(false); setSaveError('Non sei autenticato. Ricarica la pagina.'); return }
-      const { data: created, error: cErr } = await supabase
-        .from('families')
-        .upsert({ user_id: user.id }, { onConflict: 'user_id' })
-        .select('id')
-        .single()
-      if (cErr || !created) {
+    try {
+      const res = await fetch('/api/profile/children', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...form, editId }),
+      })
+      const data = await res.json()
+
+      if (!res.ok) {
+        setSaveError(data.error ?? 'Errore nel salvataggio. Riprova.')
         setSaving(false)
-        setSaveError('Impossibile creare il profilo famiglia. Riprova.')
         return
       }
-      fid = created.id
-      setFamilyId(fid)
-    }
 
-    const payload = {
-      name: form.name.trim(),
-      age: parseInt(form.age),
-      gender: form.gender,
-      favorite_themes: form.favorite_themes,
-      avatar_emoji: form.avatar_emoji,
-      family_id: fid,
-    }
+      if (editId) {
+        setProfiles((prev) => prev.map((p) => (p.id === editId ? data.child : p)))
+      } else {
+        setProfiles((prev) => [...prev, data.child])
+      }
 
-    if (editId) {
-      const { data, error } = await supabase
-        .from('child_profiles')
-        .update(payload)
-        .eq('id', editId)
-        .select()
-        .single()
-      if (error) { setSaveError('Errore modifica: ' + error.message); setSaving(false); return }
-      if (data) setProfiles((prev) => prev.map((p) => (p.id === editId ? data : p)))
-    } else {
-      const { data, error } = await supabase
-        .from('child_profiles')
-        .insert(payload)
-        .select()
-        .single()
-      if (error) { setSaveError('Errore salvataggio: ' + error.message); setSaving(false); return }
-      if (data) setProfiles((prev) => [...prev, data])
+      setForm(emptyForm)
+      setEditId(null)
+      setShowForm(false)
+    } catch {
+      setSaveError('Errore di rete. Controlla la connessione e riprova.')
     }
-
-    setForm(emptyForm)
-    setEditId(null)
-    setShowForm(false)
     setSaving(false)
   }
 
@@ -154,7 +105,7 @@ export default function ProfilePage() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Eliminare questo profilo bambino?')) return
-    await supabase.from('child_profiles').delete().eq('id', id)
+    await fetch(`/api/profile/children?id=${id}`, { method: 'DELETE' })
     setProfiles((prev) => prev.filter((p) => p.id !== id))
   }
 
@@ -169,8 +120,8 @@ export default function ProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: 'var(--background)' }}>
-        <Loader2 size={40} className="animate-spin" style={{ color: 'var(--primary)' }} />
+      <div className="min-h-screen flex items-center justify-center" style={{ background: 'linear-gradient(180deg, #f3e8ff 0%, #fdf4ff 100%)' }}>
+        <Loader2 size={40} className="animate-spin" style={{ color: '#7c3aed' }} />
       </div>
     )
   }
@@ -193,15 +144,16 @@ export default function ProfilePage() {
       </header>
 
       <main className="max-w-2xl mx-auto px-4 py-8 space-y-8">
-        {/* Profiles list */}
+        {/* Lista profili */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>
+            <h2 className="text-xl font-bold" style={{ color: '#4c1d95' }}>
               Profili bambino
             </h2>
             <Button
               size="sm"
-              onClick={() => { setForm(emptyForm); setEditId(null); setShowForm(true) }}
+              onClick={() => { setForm(emptyForm); setEditId(null); setShowForm(true); setSaveError(null) }}
+              style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
             >
               <Plus size={14} /> Aggiungi
             </Button>
@@ -210,16 +162,19 @@ export default function ProfilePage() {
           {profiles.length === 0 && !showForm && (
             <div
               className="rounded-2xl border-2 border-dashed p-10 text-center"
-              style={{ borderColor: 'var(--border)' }}
+              style={{ borderColor: '#e9d5ff' }}
             >
               <p className="text-4xl mb-3">🧒</p>
-              <p className="font-medium mb-1" style={{ color: 'var(--foreground)' }}>
+              <p className="font-medium mb-1" style={{ color: '#4c1d95' }}>
                 Nessun profilo ancora
               </p>
-              <p className="text-sm mb-4" style={{ color: 'var(--muted-foreground)' }}>
+              <p className="text-sm mb-4" style={{ color: '#7c3aed' }}>
                 Crea il profilo del tuo bambino per personalizzare le storie
               </p>
-              <Button onClick={() => setShowForm(true)}>
+              <Button
+                onClick={() => setShowForm(true)}
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #c026d3)', color: 'white' }}
+              >
                 <Plus size={14} /> Crea profilo
               </Button>
             </div>
@@ -230,16 +185,16 @@ export default function ProfilePage() {
               <motion.div
                 key={profile.id}
                 className="rounded-2xl border p-4 flex items-center gap-4"
-                style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)' }}
+                style={{ borderColor: '#e9d5ff', backgroundColor: 'white' }}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
               >
                 <span className="text-4xl">{profile.avatar_emoji}</span>
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold" style={{ color: 'var(--foreground)' }}>
+                  <h3 className="font-bold" style={{ color: '#4c1d95' }}>
                     {profile.name}
                   </h3>
-                  <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                  <p className="text-sm" style={{ color: '#7c3aed' }}>
                     {profile.age} anni
                   </p>
                   {profile.favorite_themes.length > 0 && (
@@ -248,7 +203,7 @@ export default function ProfilePage() {
                         <span
                           key={t}
                           className="text-xs px-2 py-0.5 rounded-full"
-                          style={{ backgroundColor: 'var(--muted)', color: 'var(--muted-foreground)' }}
+                          style={{ backgroundColor: '#f3e8ff', color: '#7c3aed' }}
                         >
                           {t}
                         </span>
@@ -257,7 +212,12 @@ export default function ProfilePage() {
                   )}
                 </div>
                 <div className="flex gap-2 flex-shrink-0">
-                  <Button size="sm" variant="ghost" onClick={() => handleEdit(profile)}>
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => handleEdit(profile)}
+                    style={{ color: '#7c3aed' }}
+                  >
                     Modifica
                   </Button>
                   <Button
@@ -278,17 +238,17 @@ export default function ProfilePage() {
         {showForm && (
           <motion.section
             className="rounded-2xl border p-6 space-y-5"
-            style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)' }}
+            style={{ borderColor: '#e9d5ff', backgroundColor: 'white' }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <h3 className="font-bold text-lg" style={{ color: 'var(--foreground)' }}>
+            <h3 className="font-bold text-lg" style={{ color: '#4c1d95' }}>
               {editId ? 'Modifica profilo' : 'Nuovo profilo bambino'}
             </h3>
 
             {/* Avatar picker */}
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#4c1d95' }}>
                 Avatar
               </label>
               <div className="flex flex-wrap gap-2">
@@ -298,7 +258,7 @@ export default function ProfilePage() {
                     onClick={() => setForm((f) => ({ ...f, avatar_emoji: emoji }))}
                     className="w-10 h-10 text-xl rounded-full transition-all"
                     style={{
-                      backgroundColor: form.avatar_emoji === emoji ? 'var(--primary)' : 'var(--muted)',
+                      backgroundColor: form.avatar_emoji === emoji ? '#7c3aed' : '#f3e8ff',
                       transform: form.avatar_emoji === emoji ? 'scale(1.2)' : 'scale(1)',
                     }}
                   >
@@ -310,7 +270,7 @@ export default function ProfilePage() {
 
             {/* Name */}
             <div>
-              <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
+              <label className="block text-sm font-medium mb-1" style={{ color: '#4c1d95' }}>
                 Nome *
               </label>
               <Input
@@ -323,7 +283,7 @@ export default function ProfilePage() {
             {/* Age + gender */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
+                <label className="block text-sm font-medium mb-1" style={{ color: '#4c1d95' }}>
                   Età *
                 </label>
                 <Input
@@ -336,12 +296,12 @@ export default function ProfilePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1" style={{ color: 'var(--foreground)' }}>
+                <label className="block text-sm font-medium mb-1" style={{ color: '#4c1d95' }}>
                   Genere
                 </label>
                 <select
                   className="w-full h-11 rounded-xl border px-3 text-sm"
-                  style={{ borderColor: 'var(--border)', backgroundColor: 'var(--card)', color: 'var(--foreground)' }}
+                  style={{ borderColor: '#e9d5ff', backgroundColor: 'white', color: '#4c1d95' }}
                   value={form.gender}
                   onChange={(e) => setForm((f) => ({ ...f, gender: e.target.value as 'male' | 'female' | 'other' }))}
                 >
@@ -354,7 +314,7 @@ export default function ProfilePage() {
 
             {/* Themes */}
             <div>
-              <label className="block text-sm font-medium mb-2" style={{ color: 'var(--foreground)' }}>
+              <label className="block text-sm font-medium mb-2" style={{ color: '#4c1d95' }}>
                 Temi preferiti
               </label>
               <div className="flex flex-wrap gap-2">
@@ -364,9 +324,9 @@ export default function ProfilePage() {
                     onClick={() => toggleTheme(theme)}
                     className="px-3 py-1.5 rounded-full text-sm border transition-all"
                     style={{
-                      borderColor: form.favorite_themes.includes(theme) ? 'var(--primary)' : 'var(--border)',
-                      backgroundColor: form.favorite_themes.includes(theme) ? 'var(--primary)' : 'transparent',
-                      color: form.favorite_themes.includes(theme) ? 'white' : 'var(--muted-foreground)',
+                      borderColor: form.favorite_themes.includes(theme) ? '#7c3aed' : '#e9d5ff',
+                      backgroundColor: form.favorite_themes.includes(theme) ? '#7c3aed' : 'transparent',
+                      color: form.favorite_themes.includes(theme) ? 'white' : '#7c3aed',
                     }}
                   >
                     {theme}

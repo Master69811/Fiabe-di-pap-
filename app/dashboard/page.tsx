@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Plus, Mic, AlertTriangle, Wand2 } from 'lucide-react'
-import { createClient } from '@/lib/supabase/client'
 import { getStoriesByCategory } from '@/lib/stories-catalog'
 import { StoryCard } from '@/components/StoryCard'
 import { ChildProfileCard } from '@/components/ChildProfileCard'
@@ -18,7 +17,6 @@ import { Family, ChildProfile, Story, StoryDuration } from '@/types'
 
 export default function DashboardPage() {
   const router = useRouter()
-  const supabase = createClient()
 
   const [family, setFamily] = useState<Family | null>(null)
   const [children, setChildren] = useState<ChildProfile[]>([])
@@ -30,52 +28,33 @@ export default function DashboardPage() {
 
   useEffect(() => {
     async function loadData() {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser()
-      if (!user) {
-        router.push('/login')
-        return
-      }
-
-      let { data: familyData } = await supabase
-        .from('families')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
-
-      if (!familyData) {
-        const { data: created } = await supabase
-          .from('families')
-          .upsert({ user_id: user.id }, { onConflict: 'user_id' })
-          .select('*')
-          .single()
-        familyData = created
-      }
-
-      if (familyData) {
-        setFamily(familyData as Family)
-
-        const { data: childrenData } = await supabase
-          .from('child_profiles')
-          .select('*')
-          .eq('family_id', familyData.id)
-          .order('created_at', { ascending: true })
-
-        if (childrenData && childrenData.length > 0) {
-          setChildren(childrenData as ChildProfile[])
-          setSelectedChild(childrenData[0] as ChildProfile)
-          if (childrenData[0]?.age) {
-            setAgeFilter(childrenData[0].age)
+      try {
+        const res = await fetch('/api/family/ensure')
+        if (res.status === 401) {
+          router.push('/login')
+          return
+        }
+        if (res.ok) {
+          const data = await res.json()
+          if (data.family) {
+            setFamily(data.family as Family)
+          }
+          if (data.children && data.children.length > 0) {
+            setChildren(data.children as ChildProfile[])
+            setSelectedChild(data.children[0] as ChildProfile)
+            if (data.children[0]?.age) {
+              setAgeFilter(data.children[0].age)
+            }
           }
         }
+      } catch {
+        // Network error — still show the page
       }
-
       setLoading(false)
     }
 
     loadData()
-  }, [])
+  }, [router])
 
   const filteredStories = (() => {
     let stories = getStoriesByCategory(selectedCategory)

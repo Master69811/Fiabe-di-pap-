@@ -11,7 +11,12 @@ import {
   Sun,
   SkipBack,
   SkipForward,
+  Music,
+  VolumeOff,
 } from 'lucide-react'
+
+const MUSIC_VOLUME = 0.08
+const MUSIC_FADE_MS = 1500
 
 interface AudioPlayerProps {
   audioUrl: string
@@ -19,6 +24,7 @@ interface AudioPlayerProps {
   childName?: string
   coverEmoji: string
   coverColor?: string
+  backgroundMusicUrl?: string
 }
 
 function formatTime(seconds: number): string {
@@ -28,8 +34,18 @@ function formatTime(seconds: number): string {
   return `${mins}:${secs.toString().padStart(2, '0')}`
 }
 
-export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, coverColor }: AudioPlayerProps) {
+export function AudioPlayer({
+  audioUrl,
+  storyTitle,
+  childName,
+  coverEmoji,
+  coverColor,
+  backgroundMusicUrl,
+}: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
+  const musicRef = useRef<HTMLAudioElement>(null)
+  const fadingRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
   const [duration, setDuration] = useState(0)
@@ -37,6 +53,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
   const [isMuted, setIsMuted] = useState(false)
   const [nightMode, setNightMode] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [musicOn, setMusicOn] = useState(true)
 
   useEffect(() => {
     const audio = audioRef.current
@@ -44,7 +61,10 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
 
     const onTimeUpdate = () => setCurrentTime(audio.currentTime)
     const onDurationChange = () => setDuration(audio.duration)
-    const onEnded = () => setIsPlaying(false)
+    const onEnded = () => {
+      setIsPlaying(false)
+      fadeOutMusic()
+    }
     const onCanPlay = () => setIsLoading(false)
     const onWaiting = () => setIsLoading(true)
 
@@ -61,6 +81,54 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
       audio.removeEventListener('canplay', onCanPlay)
       audio.removeEventListener('waiting', onWaiting)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (fadingRef.current) clearInterval(fadingRef.current)
+      const music = musicRef.current
+      if (music) {
+        music.pause()
+        music.currentTime = 0
+      }
+    }
+  }, [])
+
+  const fadeInMusic = useCallback(() => {
+    const music = musicRef.current
+    if (!music || !backgroundMusicUrl || !musicOn) return
+    if (fadingRef.current) clearInterval(fadingRef.current)
+    music.volume = 0
+    music.play().catch(() => null)
+    const step = MUSIC_VOLUME / (MUSIC_FADE_MS / 50)
+    fadingRef.current = setInterval(() => {
+      if (!musicRef.current) return
+      const next = Math.min(MUSIC_VOLUME, musicRef.current.volume + step)
+      musicRef.current.volume = next
+      if (next >= MUSIC_VOLUME) {
+        clearInterval(fadingRef.current!)
+        fadingRef.current = null
+      }
+    }, 50)
+  }, [backgroundMusicUrl, musicOn])
+
+  const fadeOutMusic = useCallback(() => {
+    const music = musicRef.current
+    if (!music) return
+    if (fadingRef.current) clearInterval(fadingRef.current)
+    const step = music.volume / (MUSIC_FADE_MS / 50)
+    fadingRef.current = setInterval(() => {
+      if (!musicRef.current) return
+      const next = Math.max(0, musicRef.current.volume - step)
+      musicRef.current.volume = next
+      if (next <= 0) {
+        clearInterval(fadingRef.current!)
+        fadingRef.current = null
+        musicRef.current.pause()
+        musicRef.current.currentTime = 0
+      }
+    }, 50)
   }, [])
 
   const togglePlay = useCallback(async () => {
@@ -69,11 +137,23 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
     if (isPlaying) {
       audio.pause()
       setIsPlaying(false)
+      fadeOutMusic()
     } else {
       await audio.play()
       setIsPlaying(true)
+      fadeInMusic()
     }
-  }, [isPlaying])
+  }, [isPlaying, fadeInMusic, fadeOutMusic])
+
+  const toggleMusic = useCallback(() => {
+    if (musicOn) {
+      setMusicOn(false)
+      fadeOutMusic()
+    } else {
+      setMusicOn(true)
+      if (isPlaying) fadeInMusic()
+    }
+  }, [musicOn, isPlaying, fadeInMusic, fadeOutMusic])
 
   const handleSeek = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const audio = audioRef.current
@@ -116,10 +196,10 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
     ? { background: 'linear-gradient(135deg, #0d0a1a 0%, #1a1230 100%)', color: '#e8d5ff' }
     : { background: 'linear-gradient(135deg, #fdf8f0 0%, #f5ede0 100%)', color: 'var(--foreground)' }
 
-  const accentColor = nightMode ? '#a78bfa' : 'var(--primary)'
+  const accentColor = nightMode ? '#a78bfa' : '#7c3aed'
   const coverBg = nightMode
     ? 'linear-gradient(135deg, #2d1b69 0%, #4c1d95 100%)'
-    : (coverColor ?? 'linear-gradient(135deg, var(--primary) 0%, #f4a261 100%)')
+    : (coverColor ?? 'linear-gradient(135deg, #7c3aed 0%, #f4a261 100%)')
 
   return (
     <div
@@ -127,17 +207,35 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
       style={bgStyle}
     >
       <audio ref={audioRef} src={audioUrl} preload="auto" />
+      {backgroundMusicUrl && (
+        <audio ref={musicRef} src={backgroundMusicUrl} loop preload="none" />
+      )}
 
       <div className="w-full max-w-md mx-auto">
-        {/* Toggle modalità notte */}
-        <div className="flex justify-end mb-6">
+        {/* Barra pulsanti in alto */}
+        <div className="flex justify-end gap-2 mb-6">
+          {backgroundMusicUrl && (
+            <motion.button
+              whileTap={{ scale: 0.9 }}
+              onClick={toggleMusic}
+              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+              style={{
+                backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
+                color: musicOn ? accentColor : (nightMode ? '#6b7280' : '#9ca3af'),
+              }}
+              aria-label={musicOn ? 'Disattiva musica' : 'Attiva musica'}
+              title={musicOn ? 'Musica ON' : 'Musica OFF'}
+            >
+              {musicOn ? <Music size={16} /> : <VolumeOff size={16} />}
+            </motion.button>
+          )}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => setNightMode(!nightMode)}
             className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
             style={{
-              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : 'var(--muted)',
-              color: nightMode ? '#e8d5ff' : 'var(--muted-foreground)',
+              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
+              color: nightMode ? '#e8d5ff' : '#7c3aed',
             }}
             aria-label="Modalità notte"
           >
@@ -152,7 +250,6 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             animate={isPlaying ? { scale: [1, 1.04, 1] } : { scale: 1 }}
             transition={{ duration: 2.5, repeat: isPlaying ? Infinity : 0, ease: 'easeInOut' }}
           >
-            {/* Alone luminoso */}
             <AnimatePresence>
               {isPlaying && (
                 <motion.div
@@ -191,20 +288,22 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
           ))}
         </div>
 
-        {/* Titolo e nome bambino */}
+        {/* Titolo */}
         <div className="text-center mb-8">
           <h2
             className="text-2xl font-bold mb-1"
-            style={{ color: nightMode ? '#e8d5ff' : 'var(--foreground)' }}
+            style={{ color: nightMode ? '#e8d5ff' : '#4c1d95' }}
           >
             {storyTitle}
           </h2>
           {childName && (
-            <p
-              className="text-sm"
-              style={{ color: nightMode ? '#c4b5fd' : 'var(--muted-foreground)' }}
-            >
+            <p style={{ color: nightMode ? '#c4b5fd' : '#7c3aed' }}>
               Per {childName} con tanto amore 💕
+            </p>
+          )}
+          {backgroundMusicUrl && musicOn && (
+            <p className="text-xs mt-1" style={{ color: nightMode ? '#7c3aed' : '#a78bfa' }}>
+              🎵 Sottofondo musicale attivo
             </p>
           )}
         </div>
@@ -219,14 +318,14 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             onChange={handleSeek}
             className="w-full h-2 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, ${accentColor} ${progressPercent}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${progressPercent}%)`,
+              background: `linear-gradient(to right, ${accentColor} ${progressPercent}%, ${nightMode ? 'rgba(255,255,255,0.15)' : '#e9d5ff'} ${progressPercent}%)`,
               WebkitAppearance: 'none',
             }}
           />
         </div>
         <div
           className="flex justify-between text-xs mb-8"
-          style={{ color: nightMode ? '#a78bfa' : 'var(--muted-foreground)' }}
+          style={{ color: nightMode ? '#a78bfa' : '#7c3aed' }}
         >
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
@@ -239,15 +338,14 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             onClick={() => skip(-10)}
             className="w-12 h-12 rounded-full flex items-center justify-center"
             style={{
-              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : 'var(--muted)',
-              color: nightMode ? '#e8d5ff' : 'var(--foreground)',
+              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
+              color: nightMode ? '#e8d5ff' : '#7c3aed',
             }}
             aria-label="Indietro 10 secondi"
           >
             <SkipBack size={20} />
           </motion.button>
 
-          {/* Play/Pausa */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.06 }}
@@ -257,7 +355,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             style={{
               background: nightMode
                 ? 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)'
-                : (coverBg ?? 'linear-gradient(135deg, var(--primary) 0%, #f4a261 100%)'),
+                : coverBg,
               color: '#ffffff',
             }}
             aria-label={isPlaying ? 'Pausa' : 'Riproduci'}
@@ -276,8 +374,8 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             onClick={() => skip(10)}
             className="w-12 h-12 rounded-full flex items-center justify-center"
             style={{
-              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : 'var(--muted)',
-              color: nightMode ? '#e8d5ff' : 'var(--foreground)',
+              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
+              color: nightMode ? '#e8d5ff' : '#7c3aed',
             }}
             aria-label="Avanti 10 secondi"
           >
@@ -289,7 +387,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
         <div className="flex items-center gap-3">
           <button
             onClick={toggleMute}
-            style={{ color: nightMode ? '#a78bfa' : 'var(--muted-foreground)' }}
+            style={{ color: nightMode ? '#a78bfa' : '#7c3aed' }}
             aria-label={isMuted ? 'Riattiva audio' : 'Silenzia'}
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
@@ -303,7 +401,7 @@ export function AudioPlayer({ audioUrl, storyTitle, childName, coverEmoji, cover
             onChange={handleVolume}
             className="flex-1 h-1.5 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, ${accentColor} ${(isMuted ? 0 : volume) * 100}%, ${nightMode ? 'rgba(255,255,255,0.15)' : 'var(--border)'} ${(isMuted ? 0 : volume) * 100}%)`,
+              background: `linear-gradient(to right, ${accentColor} ${(isMuted ? 0 : volume) * 100}%, ${nightMode ? 'rgba(255,255,255,0.15)' : '#e9d5ff'} ${(isMuted ? 0 : volume) * 100}%)`,
               WebkitAppearance: 'none',
             }}
             aria-label="Volume"
