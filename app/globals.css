@@ -1,60 +1,45 @@
 @import "tailwindcss";
 
 /* ============================================
-   Fiabe di Papà — Design System
-   Tema: mondo delle fiabe digitale
-   Ispirazione: libro illustrato che prende vita
+   Fiabe di Papà — Dark Rose-Violet Design System
+   Premium SaaS dark mode, 8px scale
    ============================================ */
 
 :root {
-  /* Colori principali */
-  --primary: #FF8C42;
-  --primary-dark: #e06c28;
-  --primary-light: #FFB380;
+  /* Base */
+  --background:       #0a0710;
+  --surface:          #130f20;
+  --surface-2:        #1e1832;
+  --border:           #2d2548;
+  --foreground:       #f0eaff;
+  --muted:            #1e1832;
+  --muted-foreground: #9d8fc0;
 
-  /* Magico / Viola */
-  --magic: #9B59B6;
-  --magic-light: #C39BD3;
+  /* Accent palette */
+  --primary:          #e879f9;
+  --primary-dark:     #c026d3;
+  --primary-light:    #f0abfc;
+  --rose:             #fb7185;
+  --violet:           #a78bfa;
+  --accent:           #a78bfa;
+  --accent-dim:       #2d1b5e;
 
-  /* Verde bosco */
-  --forest: #27AE60;
-  --forest-light: #82E0AA;
+  /* Component aliases */
+  --card:             #130f20;
+  --secondary:        #1e1832;
 
-  /* Azzurro cielo */
-  --sky: #3498DB;
-  --sky-light: #85C1E9;
+  /* Semantic legacy (story covers, badges) */
+  --magic:            #a78bfa;
+  --forest:           #34d399;
+  --sky:              #38bdf8;
+  --fairy:            #fb7185;
+  --star:             #fbbf24;
 
-  /* Rosa fiabesco */
-  --fairy: #FF6B9D;
-  --fairy-light: #FFB3CC;
-
-  /* Giallo stella */
-  --star: #F39C12;
-  --star-light: #FAD7A0;
-
-  /* Neutri caldi */
-  --background: #FFF9F0;
-  --surface: #FFFFFF;
-  --muted: #FFF3E0;
-  --muted-foreground: #8D6E63;
-
-  /* Testi */
-  --foreground: #3E2723;
-  --foreground-soft: #5D4037;
-  --border: #FFE0B2;
-
-  /* Notte */
-  --night-bg: #0D0B1A;
-  --night-surface: #1A1530;
-  --night-fg: #E8D5FF;
-  --night-border: #2D1F5E;
-  --night-star: #FFD700;
-
-  /* Radii */
-  --radius-sm: 0.75rem;
-  --radius-md: 1.25rem;
-  --radius-lg: 2rem;
-  --radius-xl: 3rem;
+  /* Radii — max 8px */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 8px;
 }
 
 @theme inline {
@@ -68,22 +53,22 @@ html, body { height: 100%; }
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: 'Nunito', 'Quicksand', Georgia, sans-serif;
+  font-family: 'Nunito', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
 /* ============================================
    Scrollbar
    ============================================ */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--muted); border-radius: 10px; }
-::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--surface); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* ============================================
-   Animazioni
+   Animations
    ============================================ */
 
-/* Soundwave */
 @keyframes soundwave {
   0%, 100% { transform: scaleY(0.25); }
   50% { transform: scaleY(1); }
@@ -100,54 +85,46 @@ body {
 .soundwave-bar:nth-child(6) { animation-delay: 0.20s; }
 .soundwave-bar:nth-child(7) { animation-delay: 0.10s; }
 
-/* Float */
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-12px) rotate(3deg); }
-  66% { transform: translateY(-6px) rotate(-2deg); }
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 }
-.float { animation: float 4s ease-in-out infinite; }
+.float { animation: float 3s ease-in-out infinite; }
 
-/* Float varianti */
 @keyframes float-slow {
   0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-18px); }
+  50% { transform: translateY(-14px); }
 }
-.float-slow { animation: float-slow 6s ease-in-out infinite; }
+.float-slow { animation: float-slow 5s ease-in-out infinite; }
 
-/* Twinkle stelle */
 @keyframes twinkle {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(1.2); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.15); }
 }
 .twinkle { animation: twinkle 2s ease-in-out infinite; }
 
-/* Pulse glow */
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 140, 66, 0.3); }
-  50% { box-shadow: 0 0 50px rgba(255, 140, 66, 0.7), 0 0 80px rgba(255, 140, 66, 0.3); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232,121,249,0.3); }
+  50% { box-shadow: 0 0 0 10px rgba(232,121,249,0); }
 }
 .pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
 
-/* Shimmer */
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
 .shimmer {
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  background: linear-gradient(90deg, transparent, rgba(232,121,249,0.1), transparent);
   background-size: 200% auto;
   animation: shimmer 2s linear infinite;
 }
 
-/* Bounce soft */
 @keyframes bounce-soft {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-6px); }
 }
 .bounce-soft { animation: bounce-soft 2s ease-in-out infinite; }
 
-/* Spin slow */
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -155,97 +132,44 @@ body {
 .spin-slow { animation: spin-slow 20s linear infinite; }
 
 /* ============================================
-   Night mode
+   Story card
    ============================================ */
-.night-mode {
-  background-color: var(--night-bg) !important;
-  color: var(--night-fg) !important;
-}
-.night-mode .night-surface {
-  background-color: var(--night-surface) !important;
-  border-color: var(--night-border) !important;
-}
-.night-mode .night-text { color: var(--night-fg) !important; }
+.story-card { transition: transform 0.2s ease; }
+.story-card:hover { transform: translateY(-3px); }
 
 /* ============================================
-   Card magic hover
+   Gradients
    ============================================ */
-.story-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.story-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-}
-
-/* ============================================
-   Sfondo stelle decorative
-   ============================================ */
-.stars-bg {
-  background-image:
-    radial-gradient(circle at 15% 85%, rgba(255,140,66,0.08) 0%, transparent 45%),
-    radial-gradient(circle at 85% 15%, rgba(155,89,182,0.08) 0%, transparent 45%),
-    radial-gradient(circle at 50% 50%, rgba(243,156,18,0.04) 0%, transparent 60%);
-}
-
-/* ============================================
-   Fantasy gradients
-   ============================================ */
-.gradient-magic { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-.gradient-sunset { background: linear-gradient(135deg, #FF8C42 0%, #FF6B9D 100%); }
-.gradient-forest { background: linear-gradient(135deg, #27AE60 0%, #3498DB 100%); }
-.gradient-night { background: linear-gradient(135deg, #0D0B1A 0%, #1A1530 50%, #2D1F5E 100%); }
-.gradient-dawn { background: linear-gradient(135deg, #FCB69F 0%, #FFECD2 100%); }
-.gradient-sky { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); }
+.gradient-magic  { background: linear-gradient(135deg, #a855f7 0%, #e879f9 100%); }
+.gradient-sunset { background: linear-gradient(135deg, #fb7185 0%, #e879f9 100%); }
+.gradient-forest { background: linear-gradient(135deg, #34d399 0%, #38bdf8 100%); }
+.gradient-night  { background: linear-gradient(135deg, #0a0710 0%, #1e1832 100%); }
+.gradient-dawn   { background: linear-gradient(135deg, #fb7185 0%, #fbbf24 100%); }
+.gradient-sky    { background: linear-gradient(135deg, #38bdf8 0%, #a78bfa 100%); }
 
 /* ============================================
    Typography
    ============================================ */
 .text-story { font-family: Georgia, 'Times New Roman', serif; line-height: 1.8; }
-.font-display { font-family: 'Nunito', Georgia, sans-serif; font-weight: 800; }
+.font-display { font-family: 'Nunito', sans-serif; font-weight: 800; }
 
 /* ============================================
-   Emoji covers
-   ============================================ */
-.emoji-cover {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--radius-lg);
-  font-size: 3.5rem;
-  aspect-ratio: 1;
-  position: relative;
-  overflow: hidden;
-}
-.emoji-cover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.3) 0%, transparent 60%);
-}
-
-/* ============================================
-   Progress bar custom
+   Progress bar
    ============================================ */
 .progress-bar {
   -webkit-appearance: none;
   appearance: none;
-  height: 6px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.1);
+  height: 4px;
+  border-radius: 4px;
+  background: var(--surface-2);
   cursor: pointer;
   width: 100%;
 }
 .progress-bar::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 20px;
-  height: 20px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: var(--primary);
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(255,140,66,0.4);
-}
-.progress-bar::-webkit-slider-runnable-track {
-  height: 6px;
-  border-radius: 10px;
 }

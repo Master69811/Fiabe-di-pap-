@@ -9,43 +9,38 @@ interface MascotProps {
 }
 
 export function Mascot({ childName, message, size = 'md' }: MascotProps) {
-  const emojiSize = size === 'sm' ? 'text-4xl' : size === 'lg' ? 'text-8xl' : 'text-6xl'
-  const wrapperSize = size === 'sm' ? 'w-16 h-16' : size === 'lg' ? 'w-32 h-32' : 'w-24 h-24'
+  const emojiSize = size === 'sm' ? 'text-3xl' : size === 'lg' ? 'text-6xl' : 'text-4xl'
+  const wrapperSize = size === 'sm' ? 'w-12 h-12' : size === 'lg' ? 'w-24 h-24' : 'w-16 h-16'
 
   const greeting = message ?? (childName
-    ? `Ciao ${childName}! Quale storia ascoltiamo stasera? 🌙`
-    : 'Benvenuto! Scegli una storia e inizia il viaggio 🌟')
+    ? `Ciao ${childName}! Quale storia ascoltiamo stasera?`
+    : 'Benvenuto! Scegli una storia e inizia il viaggio.')
 
   return (
-    <div className="flex items-center gap-4">
-      {/* Gufo mascotte */}
+    <div className="flex items-center gap-3">
       <motion.div
-        className={`${wrapperSize} rounded-full flex items-center justify-center flex-shrink-0 shadow-lg`}
-        style={{
-          background: 'linear-gradient(135deg, #4F46E5, #7C3AED)',
-        }}
-        animate={{ y: [0, -6, 0] }}
+        className={`${wrapperSize} rounded-lg flex items-center justify-center flex-shrink-0`}
+        style={{ background: 'linear-gradient(135deg, var(--primary), var(--accent))' }}
+        animate={{ y: [0, -4, 0] }}
         transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
         aria-hidden
       >
         <span className={emojiSize}>🦉</span>
       </motion.div>
 
-      {/* Fumetto */}
       <motion.div
-        className="relative rounded-2xl px-4 py-3 shadow-sm flex-1 max-w-xs"
+        className="relative rounded-lg px-4 py-2.5 flex-1 max-w-sm"
         style={{
           backgroundColor: 'var(--surface)',
-          border: '2px solid var(--border)',
+          border: '1px solid var(--border)',
         }}
-        initial={{ opacity: 0, scale: 0.8, x: -10 }}
-        animate={{ opacity: 1, scale: 1, x: 0 }}
-        transition={{ delay: 0.2, type: 'spring', stiffness: 260, damping: 20 }}
+        initial={{ opacity: 0, x: -8 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ delay: 0.15, type: 'spring', stiffness: 300, damping: 24 }}
       >
-        {/* Codina del fumetto */}
         <div
-          className="absolute -left-2 top-4 w-3 h-3 rotate-45"
-          style={{ backgroundColor: 'var(--surface)', border: '2px solid var(--border)', borderRight: 'none', borderTop: 'none' }}
+          className="absolute -left-1.5 top-3.5 w-2.5 h-2.5 rotate-45"
+          style={{ backgroundColor: 'var(--surface)', borderLeft: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
         />
         <p className="text-sm font-semibold leading-snug" style={{ color: 'var(--foreground)' }}>
           {greeting}

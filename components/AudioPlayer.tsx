@@ -57,7 +57,7 @@ export function AudioPlayer({
   const [duration, setDuration] = useState(0)
   const [volume, setVolume] = useState(1)
   const [isMuted, setIsMuted] = useState(false)
-  const [nightMode, setNightMode] = useState(false)
+  const [dimMode, setDimMode] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
   const [musicOn, setMusicOn] = useState(true)
   const [sleepOption, setSleepOption] = useState<SleepOption>(null)
@@ -99,7 +99,6 @@ export function AudioPlayer({
     }
   }, [])
 
-  // Sleep timer countdown
   useEffect(() => {
     if (!isPlaying || sleepOption === null || sleepRemainingRef.current <= 0) return
     const id = setInterval(() => {
@@ -206,15 +205,8 @@ export function AudioPlayer({
   }, [duration])
 
   const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0
-
-  const bgStyle: React.CSSProperties = nightMode
-    ? { background: 'linear-gradient(135deg, #0d0a1a 0%, #1a1230 100%)', color: '#e8d5ff' }
-    : { background: 'linear-gradient(135deg, #fdf8f0 0%, #f5ede0 100%)', color: 'var(--foreground)' }
-
-  const accentColor = nightMode ? '#a78bfa' : '#7c3aed'
-  const coverBg = nightMode
-    ? 'linear-gradient(135deg, #2d1b69 0%, #4c1d95 100%)'
-    : (coverColor ?? 'linear-gradient(135deg, #7c3aed 0%, #f4a261 100%)')
+  const coverBg = coverColor ?? 'linear-gradient(135deg, #a855f7 0%, #e879f9 100%)'
+  const bgColor = dimMode ? '#05030d' : 'var(--background)'
 
   const sleepLabel = sleepOption === null
     ? null
@@ -223,59 +215,63 @@ export function AudioPlayer({
       : `${sleepOption}m`
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 transition-all duration-700" style={bgStyle}>
+    <div
+      className="min-h-screen flex items-center justify-center p-6 transition-colors duration-700"
+      style={{ backgroundColor: bgColor }}
+    >
       <audio ref={audioRef} src={audioUrl} preload="auto" />
       {backgroundMusicUrl && <audio ref={musicRef} src={backgroundMusicUrl} loop preload="none" />}
 
       <div className="w-full max-w-md mx-auto">
-        {/* Barra pulsanti in alto */}
+        {/* Top controls */}
         <div className="flex justify-end gap-2 mb-6">
           {/* Sleep timer */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={cycleSleep}
-            className="h-10 rounded-full flex items-center justify-center gap-1.5 transition-colors px-3"
+            className="h-8 rounded flex items-center justify-center gap-1.5 px-2.5 transition-colors"
             style={{
-              backgroundColor: sleepOption !== null
-                ? (nightMode ? 'rgba(167,139,250,0.2)' : '#ede9fe')
-                : (nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff'),
-              color: sleepOption !== null ? accentColor : (nightMode ? '#6b7280' : '#9ca3af'),
-              minWidth: '2.5rem',
+              backgroundColor: sleepOption !== null ? 'rgba(232,121,249,0.15)' : 'var(--surface-2)',
+              color: sleepOption !== null ? '#e879f9' : 'var(--muted-foreground)',
+              border: `1px solid ${sleepOption !== null ? 'rgba(232,121,249,0.3)' : 'var(--border)'}`,
+              minWidth: '2rem',
             }}
             title={sleepOption === null ? 'Timer spegnimento' : `Spegni tra ${sleepLabel}`}
           >
-            <Clock size={15} />
+            <Clock size={13} />
             {sleepLabel && <span className="text-xs font-bold tabular-nums">{sleepLabel}</span>}
           </motion.button>
 
-          {/* Musica */}
+          {/* Music toggle */}
           {backgroundMusicUrl && (
             <motion.button
               whileTap={{ scale: 0.9 }}
               onClick={toggleMusic}
-              className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+              className="w-8 h-8 rounded flex items-center justify-center transition-colors"
               style={{
-                backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
-                color: musicOn ? accentColor : (nightMode ? '#6b7280' : '#9ca3af'),
+                backgroundColor: 'var(--surface-2)',
+                border: '1px solid var(--border)',
+                color: musicOn ? '#e879f9' : 'var(--muted-foreground)',
               }}
               title={musicOn ? 'Musica ON' : 'Musica OFF'}
             >
-              {musicOn ? <Music size={16} /> : <VolumeOff size={16} />}
+              {musicOn ? <Music size={14} /> : <VolumeOff size={14} />}
             </motion.button>
           )}
 
-          {/* Notte */}
+          {/* Dim mode */}
           <motion.button
             whileTap={{ scale: 0.9 }}
-            onClick={() => setNightMode(!nightMode)}
-            className="w-10 h-10 rounded-full flex items-center justify-center transition-colors"
+            onClick={() => setDimMode(!dimMode)}
+            className="w-8 h-8 rounded flex items-center justify-center transition-colors"
             style={{
-              backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff',
-              color: nightMode ? '#e8d5ff' : '#7c3aed',
+              backgroundColor: 'var(--surface-2)',
+              border: '1px solid var(--border)',
+              color: dimMode ? '#e879f9' : 'var(--muted-foreground)',
             }}
             aria-label="Modalità notte"
           >
-            {nightMode ? <Sun size={18} /> : <Moon size={18} />}
+            {dimMode ? <Sun size={14} /> : <Moon size={14} />}
           </motion.button>
         </div>
 
@@ -286,10 +282,11 @@ export function AudioPlayer({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="mb-4 rounded-xl px-4 py-2 text-center text-sm font-semibold"
+              className="mb-4 rounded px-4 py-2 text-center text-xs font-semibold"
               style={{
-                backgroundColor: nightMode ? 'rgba(167,139,250,0.15)' : '#ede9fe',
-                color: accentColor,
+                backgroundColor: 'rgba(232,121,249,0.1)',
+                border: '1px solid rgba(232,121,249,0.2)',
+                color: '#e879f9',
               }}
             >
               💤 Spegnimento automatico tra {sleepLabel}
@@ -297,27 +294,27 @@ export function AudioPlayer({
           )}
         </AnimatePresence>
 
-        {/* Copertina */}
+        {/* Cover */}
         <div className="flex justify-center mb-8">
           <motion.div
             className="relative"
-            animate={isPlaying ? { scale: [1, 1.04, 1] } : { scale: 1 }}
-            transition={{ duration: 2.5, repeat: isPlaying ? Infinity : 0, ease: 'easeInOut' }}
+            animate={isPlaying ? { scale: [1, 1.03, 1] } : { scale: 1 }}
+            transition={{ duration: 3, repeat: isPlaying ? Infinity : 0, ease: 'easeInOut' }}
           >
             <AnimatePresence>
               {isPlaying && (
                 <motion.div
                   initial={{ scale: 0.85, opacity: 0 }}
-                  animate={{ scale: 1.25, opacity: 0.35 }}
+                  animate={{ scale: 1.3, opacity: 0.25 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 1.8, repeat: Infinity, repeatType: 'reverse' }}
-                  className="absolute inset-0 rounded-full blur-md"
+                  transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
+                  className="absolute inset-0 rounded-full blur-xl"
                   style={{ background: coverBg }}
                 />
               )}
             </AnimatePresence>
             <div
-              className="w-48 h-48 rounded-full flex items-center justify-center text-7xl shadow-2xl relative z-10"
+              className="w-44 h-44 rounded-full flex items-center justify-center text-7xl relative z-10"
               style={{ background: coverBg }}
             >
               {coverEmoji}
@@ -326,100 +323,104 @@ export function AudioPlayer({
         </div>
 
         {/* Soundwave */}
-        <div className="flex justify-center items-end gap-1 h-10 mb-6">
+        <div className="flex justify-center items-end gap-1 h-8 mb-6">
           {Array.from({ length: 7 }).map((_, i) => (
             <div
               key={i}
-              className={`w-1.5 rounded-full ${isPlaying ? 'soundwave-bar' : ''}`}
+              className={`w-1 rounded-full ${isPlaying ? 'soundwave-bar' : ''}`}
               style={{
-                height: isPlaying ? '100%' : '28%',
-                backgroundColor: accentColor,
-                opacity: isPlaying ? 1 : 0.35,
+                height: isPlaying ? '100%' : '25%',
+                backgroundColor: '#e879f9',
+                opacity: isPlaying ? 0.8 : 0.25,
                 transition: 'height 0.3s',
               }}
             />
           ))}
         </div>
 
-        {/* Titolo */}
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold mb-1" style={{ color: nightMode ? '#e8d5ff' : '#4c1d95' }}>
+        {/* Title */}
+        <div className="text-center mb-6">
+          <h2 className="text-xl font-bold mb-1" style={{ color: 'var(--foreground)' }}>
             {storyTitle}
           </h2>
           {childName && (
-            <p style={{ color: nightMode ? '#c4b5fd' : '#7c3aed' }}>Per {childName} con tanto amore 💕</p>
+            <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>Per {childName} con tanto amore 💕</p>
           )}
           {backgroundMusicUrl && musicOn && (
-            <p className="text-xs mt-1" style={{ color: nightMode ? '#7c3aed' : '#a78bfa' }}>
+            <p className="text-xs mt-1" style={{ color: 'var(--muted-foreground)' }}>
               🎵 Sottofondo musicale attivo
             </p>
           )}
         </div>
 
-        {/* Barra progresso */}
-        <div className="mb-2">
+        {/* Progress bar */}
+        <div className="mb-1.5">
           <input
             type="range" min={0} max={duration || 0} value={currentTime}
             onChange={handleSeek}
-            className="w-full h-2 rounded-full appearance-none cursor-pointer"
+            className="w-full h-1 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, ${accentColor} ${progressPercent}%, ${nightMode ? 'rgba(255,255,255,0.15)' : '#e9d5ff'} ${progressPercent}%)`,
+              background: `linear-gradient(to right, #e879f9 ${progressPercent}%, var(--surface-2) ${progressPercent}%)`,
               WebkitAppearance: 'none',
             }}
           />
         </div>
-        <div className="flex justify-between text-xs mb-8" style={{ color: nightMode ? '#a78bfa' : '#7c3aed' }}>
+        <div className="flex justify-between text-xs mb-8" style={{ color: 'var(--muted-foreground)' }}>
           <span>{formatTime(currentTime)}</span>
           <span>{formatTime(duration)}</span>
         </div>
 
-        {/* Controlli */}
-        <div className="flex items-center justify-center gap-6 mb-8">
+        {/* Controls */}
+        <div className="flex items-center justify-center gap-5 mb-8">
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => skip(-10)}
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff', color: nightMode ? '#e8d5ff' : '#7c3aed' }}
+            className="w-10 h-10 rounded-lg flex items-center justify-center"
+            style={{ backgroundColor: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--foreground)' }}
             aria-label="Indietro 10 secondi"
           >
-            <SkipBack size={20} />
+            <SkipBack size={18} />
           </motion.button>
 
           <motion.button
-            whileTap={{ scale: 0.9 }} whileHover={{ scale: 1.06 }}
+            whileTap={{ scale: 0.92 }} whileHover={{ scale: 1.05 }}
             onClick={togglePlay} disabled={isLoading}
-            className="w-20 h-20 rounded-full flex items-center justify-center shadow-xl"
-            style={{ background: nightMode ? 'linear-gradient(135deg, #7c3aed 0%, #a855f7 100%)' : coverBg, color: '#ffffff' }}
+            className="w-16 h-16 rounded-full flex items-center justify-center"
+            style={{ background: 'linear-gradient(135deg, #a855f7, #e879f9)', color: '#ffffff' }}
             aria-label={isPlaying ? 'Pausa' : 'Riproduci'}
           >
             {isLoading
-              ? <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              : isPlaying ? <Pause size={32} /> : <Play size={32} style={{ marginLeft: 3 }} />
+              ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              : isPlaying ? <Pause size={26} /> : <Play size={26} style={{ marginLeft: 2 }} />
             }
           </motion.button>
 
           <motion.button
             whileTap={{ scale: 0.9 }}
             onClick={() => skip(10)}
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{ backgroundColor: nightMode ? 'rgba(255,255,255,0.1)' : '#f3e8ff', color: nightMode ? '#e8d5ff' : '#7c3aed' }}
+            className="w-10 h-10 rounded-lg flex items-center justify-center"
+            style={{ backgroundColor: 'var(--surface-2)', border: '1px solid var(--border)', color: 'var(--foreground)' }}
             aria-label="Avanti 10 secondi"
           >
-            <SkipForward size={20} />
+            <SkipForward size={18} />
           </motion.button>
         </div>
 
         {/* Volume */}
         <div className="flex items-center gap-3">
-          <button onClick={toggleMute} style={{ color: nightMode ? '#a78bfa' : '#7c3aed' }} aria-label={isMuted ? 'Riattiva audio' : 'Silenzia'}>
-            {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          <button
+            onClick={toggleMute}
+            style={{ color: 'var(--muted-foreground)' }}
+            aria-label={isMuted ? 'Riattiva audio' : 'Silenzia'}
+          >
+            {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
           </button>
           <input
             type="range" min={0} max={1} step={0.05} value={isMuted ? 0 : volume}
             onChange={handleVolume}
-            className="flex-1 h-1.5 rounded-full appearance-none cursor-pointer"
+            className="flex-1 h-1 rounded-full appearance-none cursor-pointer"
             style={{
-              background: `linear-gradient(to right, ${accentColor} ${(isMuted ? 0 : volume) * 100}%, ${nightMode ? 'rgba(255,255,255,0.15)' : '#e9d5ff'} ${(isMuted ? 0 : volume) * 100}%)`,
+              background: `linear-gradient(to right, #e879f9 ${(isMuted ? 0 : volume) * 100}%, var(--surface-2) ${(isMuted ? 0 : volume) * 100}%)`,
               WebkitAppearance: 'none',
             }}
             aria-label="Volume"
